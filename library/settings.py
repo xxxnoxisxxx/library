@@ -31,12 +31,16 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
-    'django.contrib.admin',
-    'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'main',
+    'account',
+    'registration',
+    'django.contrib.admin',
+    'django.contrib.auth',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -74,13 +78,13 @@ WSGI_APPLICATION = 'library.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+if DEBUG is True:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
@@ -100,3 +104,47 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# Dodatkowe konfiguracje
+from django.core.urlresolvers import reverse_lazy
+
+#Konfiguracja produkcyjnej bazy danych
+if DEBUG is False:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'mydb',
+            'USER': 'myuser',
+            'PASSWORD': 'password',
+            'HOST': 'localhost', 
+            'PORT': '',
+        }
+    }
+
+
+# Pliki statyczne
+if DEBUG:
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, "static"),
+    ]
+# Folder z plikami statycznymi, do deploymentu projektu
+else:
+    STATIC_ROOT = "/var/www/library/static/"
+
+# Redux - konfiguracja rejestrowania i logowania uzytkownika
+ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window; you may, of course, use a different value.
+REGISTRATION_AUTO_LOGIN = True # Automatically log the user in.
+SITE_ID = 1
+
+# Przekierowania
+LOGIN_URL = reverse_lazy('login')
+LOGOUT_URL = reverse_lazy('logout')
+#LOGIN_REDIRECT_URL = 'accounts/login'
+
+# Konfiguracja emaila
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'aghwfiis@gmail.com'
+EMAIL_HOST_PASSWORD = 'lajkonik'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
