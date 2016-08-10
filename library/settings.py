@@ -31,16 +31,14 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
+    'django.contrib.admin',
+    'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',
     'main',
     'account',
-    'registration',
-    'django.contrib.admin',
-    'django.contrib.auth',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -138,8 +136,8 @@ REGISTRATION_AUTO_LOGIN = True # Automatically log the user in.
 SITE_ID = 1
 
 # Przekierowania
-LOGIN_URL = reverse_lazy('login')
-LOGOUT_URL = reverse_lazy('logout')
+# LOGIN_URL = reverse_lazy('login')
+# LOGOUT_URL = reverse_lazy('logout')
 #LOGIN_REDIRECT_URL = 'accounts/login'
 
 # Konfiguracja emaila

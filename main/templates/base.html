@@ -29,14 +29,12 @@
                 <li>
                     <a href="{% url 'dashboard' %}">Dashboard</a>
                 </li>
-                {% if user.is_authenticated %}
                 <li>
-                    <a href="{% url 'auth_logout' %}">Logout</a>
+                    <a href="#" Logout</a>
                 </li>
                 <li>
-                    <a href="{% url 'auth_password_change' %}">Change password</a>
+                    <a href="#">Change password</a>
                 </li>
-                {% endif %}
             </ul>
         </div>
         <div id="page-content-wrapper">
