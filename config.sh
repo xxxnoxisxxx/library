@@ -12,7 +12,7 @@ prepare_env(){
 
 	virtualenv -p $VIRTUALENV_PATH $VIRTUALENV_NAME
 	source $VIRTUALENV_NAME/bin/activate
-	sudo $PIP install Django==1.8.6
+	$PIP install Django==1.8.6
 	deactivate
 
 	migrations
