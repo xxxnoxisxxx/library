@@ -131,11 +131,6 @@ if DEBUG:
 else:
     STATIC_ROOT = "/var/www/library/static/"
 
-# Redux - konfiguracja rejestrowania i logowania uzytkownika
-ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window; you may, of course, use a different value.
-REGISTRATION_AUTO_LOGIN = True # Automatically log the user in.
-SITE_ID = 1
-
 # Przekierowania
 # LOGIN_URL = reverse_lazy('login')
 # LOGOUT_URL = reverse_lazy('logout')
