@@ -1,0 +1,18 @@
+[
+    { 
+        "model": "account.Author", 
+        "pk": 1,
+        "fields": { 
+            "name": "Harry",
+            "surname": "Percival"
+        }
+     },
+     { 
+        "model": "account.Author", 
+        "pk": 2,
+        "fields": { 
+            "name": "Włodzimierz",
+            "surname": "Gajda"
+        }
+     }
+]
