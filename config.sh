@@ -13,6 +13,7 @@ prepare_env(){
 	virtualenv -p $VIRTUALENV_PATH $VIRTUALENV_NAME
 	source $VIRTUALENV_NAME/bin/activate
 	$PIP install Django==1.9.8
+	$PIP install django-crispy-forms
 	deactivate
 
 	migrations

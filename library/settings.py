@@ -31,12 +31,14 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
+    #'bootstrap_admin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
     'main',
     'account',
     'books',
@@ -66,6 +68,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                #'django.template.context_processors.request',
             ],
         },
     },
@@ -132,7 +135,7 @@ else:
     STATIC_ROOT = "/var/www/library/static/"
 
 # Przekierowania
-# LOGIN_URL = reverse_lazy('login')
+LOGIN_URL = reverse_lazy('login')
 # LOGOUT_URL = reverse_lazy('logout')
 #LOGIN_REDIRECT_URL = 'accounts/login'
 
@@ -142,3 +145,7 @@ EMAIL_HOST_USER = 'aghwfiis@gmail.com'
 EMAIL_HOST_PASSWORD = 'lajkonik'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
+#BOOTSTRAP_ADMIN_SIDEBAR_MENU = True
+ADMIN_MEDIA_PREFIX = '/static/admin/' 
