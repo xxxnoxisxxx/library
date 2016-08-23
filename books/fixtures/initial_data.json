@@ -104,7 +104,7 @@
   }
 },
 {
-  "model": "books.author",
+  "model": "books.Author",
   "pk": 1,
   "fields": {
     "name": "Stefan",
@@ -112,7 +112,7 @@
   }
 },
 {
-  "model": "books.author",
+  "model": "books.Author",
   "pk": 2,
   "fields": {
     "name": "Vincent",
@@ -120,7 +120,7 @@
   }
 },
 {
-  "model": "books.author",
+  "model": "books.Author",
   "pk": 3,
   "fields": {
     "name": "Michael",
@@ -128,7 +128,7 @@
   }
 },
 {
-  "model": "books.author",
+  "model": "books.Author",
   "pk": 4,
   "fields": {
     "name": "Michal",
@@ -136,7 +136,7 @@
   }
 },
 {
-  "model": "books.author",
+  "model": "books.Author",
   "pk": 5,
   "fields": {
     "name": "Tarek",
@@ -144,7 +144,7 @@
   }
 },
 {
-  "model": "books.author",
+  "model": "books.Author",
   "pk": 6,
   "fields": {
     "name": "Eric",
@@ -152,7 +152,7 @@
   }
 },
 {
-  "model": "books.author",
+  "model": "books.Author",
   "pk": 7,
   "fields": {
     "name": "Arun",
@@ -160,15 +160,31 @@
   }
 },
 {
-  "model": "books.author",
+  "model": "books.Author",
   "pk": 8,
   "fields": {
     "name": "Amit",
     "surname": "Saha"
   }
 },
+{ 
+   "model": "account.Author", 
+   "pk": 9,
+   "fields": { 
+       "name": "Harry",
+       "surname": "Percival"
+   }
+},
+{ 
+   "model": "account.Author", 
+   "pk": 10,
+   "fields": { 
+       "name": "Włodzimierz",
+       "surname": "Gajda"
+   }
+},
 {
-  "model": "books.book",
+  "model": "books.Book",
   "pk": 1,
   "fields": {
     "items": null,
@@ -187,7 +203,7 @@
   }
 },
 {
-  "model": "books.book",
+  "model": "books.Book",
   "pk": 2,
   "fields": {
     "items": null,
@@ -207,7 +223,7 @@
   }
 },
 {
-  "model": "books.book",
+  "model": "books.Book",
   "pk": 3,
   "fields": {
     "items": null,
@@ -227,7 +243,7 @@
   }
 },
 {
-  "model": "books.book",
+  "model": "books.Book",
   "pk": 4,
   "fields": {
     "items": null,
@@ -246,7 +262,7 @@
   }
 },
 {
-  "model": "books.book",
+  "model": "books.Book",
   "pk": 5,
   "fields": {
     "items": null,
@@ -265,7 +281,7 @@
   }
 },
 {
-  "model": "books.book",
+  "model": "books.Book",
   "pk": 6,
   "fields": {
     "items": null,
@@ -807,4 +823,5 @@
     "change_message": "Added."
   }
 }
+
 ]

@@ -3,7 +3,7 @@
 VIRTUALENV_PATH="/usr/bin/python2.7"
 VIRTUALENV_NAME="../env"
 PROJECT_NAME="library"
-DB_JSON="db.json"
+DB_JSON="books/fixtures/initial_data.json"
 PIP=$(ls /usr/bin/ | grep pip2)
 
 prepare_env(){
@@ -41,13 +41,14 @@ run(){
 
 loaddata(){
 	source $VIRTUALENV_NAME/bin/activate; 
-	python manage.py loaddata $(DB_JSON); 
+	echo "yes" | python manage.py flush
+	python manage.py loaddata $DB_JSON; 
 	deactivate
 }
 
 dump(){
 	source $VIRTUALENV_NAME/bin/activate; 
-	python manage.py dumpdata --indent 2 > $(DB_JSON);
+	python manage.py dumpdata --indent 2 > $DB_JSON;
 	deactivate
 }
 
