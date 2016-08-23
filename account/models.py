@@ -14,12 +14,11 @@ class Reader(models.Model):
 	id_card = models.CharField(max_length=9, unique=True)
 	mobile = models.CharField(max_length=50)
 
+	class Meta:
+		db_table = 'reader'
 
 	def __unicode__(self):
 		return '%s %s' % (reader.last_name, reader.first_name)
-
-	class Meta:
-		db_table = 'reader'
 
 
 

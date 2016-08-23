@@ -1,0 +1,810 @@
+[
+{
+  "model": "contenttypes.contenttype",
+  "pk": 1,
+  "fields": {
+    "app_label": "admin",
+    "model": "logentry"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 2,
+  "fields": {
+    "app_label": "auth",
+    "model": "permission"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 3,
+  "fields": {
+    "app_label": "auth",
+    "model": "group"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 4,
+  "fields": {
+    "app_label": "auth",
+    "model": "user"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 5,
+  "fields": {
+    "app_label": "contenttypes",
+    "model": "contenttype"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 6,
+  "fields": {
+    "app_label": "sessions",
+    "model": "session"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 7,
+  "fields": {
+    "app_label": "account",
+    "model": "reader"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 8,
+  "fields": {
+    "app_label": "books",
+    "model": "author"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 9,
+  "fields": {
+    "app_label": "books",
+    "model": "loan"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 10,
+  "fields": {
+    "app_label": "books",
+    "model": "reservation"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 11,
+  "fields": {
+    "app_label": "books",
+    "model": "item"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 12,
+  "fields": {
+    "app_label": "books",
+    "model": "book"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "zhxw53fm5ejmmc3g7gea02cfetytx56y",
+  "fields": {
+    "session_data": "NzM3MGJmNTExZWIxYzBmZjMzMTZmNWE4NjdhOTlkZjY2YmFkZjY2Njp7Il9hdXRoX3VzZXJfaGFzaCI6ImUwNWIyOTQxMzhjOTY0MDc0MDlkZDZjNjk3ZGY4MzRmNmMyZWFiNzQiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=",
+    "expire_date": "2016-09-05T20:46:03.726Z"
+  }
+},
+{
+  "model": "books.author",
+  "pk": 1,
+  "fields": {
+    "name": "Stefan",
+    "surname": "Ardeleanu"
+  }
+},
+{
+  "model": "books.author",
+  "pk": 2,
+  "fields": {
+    "name": "Vincent",
+    "surname": "Theron"
+  }
+},
+{
+  "model": "books.author",
+  "pk": 3,
+  "fields": {
+    "name": "Michael",
+    "surname": "Diamant"
+  }
+},
+{
+  "model": "books.author",
+  "pk": 4,
+  "fields": {
+    "name": "Michal",
+    "surname": "Jaworski"
+  }
+},
+{
+  "model": "books.author",
+  "pk": 5,
+  "fields": {
+    "name": "Tarek",
+    "surname": "Ziade"
+  }
+},
+{
+  "model": "books.author",
+  "pk": 6,
+  "fields": {
+    "name": "Eric",
+    "surname": "Matthes"
+  }
+},
+{
+  "model": "books.author",
+  "pk": 7,
+  "fields": {
+    "name": "Arun",
+    "surname": "Tigeraniya"
+  }
+},
+{
+  "model": "books.author",
+  "pk": 8,
+  "fields": {
+    "name": "Amit",
+    "surname": "Saha"
+  }
+},
+{
+  "model": "books.book",
+  "pk": 1,
+  "fields": {
+    "items": null,
+    "reservation": null,
+    "publisher": "Apress",
+    "title": "Relational Database Programming",
+    "isbn": "9781484220795",
+    "edition": null,
+    "edition_date": null,
+    "pages": 176,
+    "available": 4,
+    "description": "Learn the best way of writing code to run inside a relational database. This book shows how a holistic and set-oriented approach to database programming can far exceed the performance of the row-by-row model that is too often used by developers who haven't been shown a better way.\r\n\r\nTwo styles of programming are encountered in the database world. Classical programming as taught in many universities leads to an atomic, row-oriented, and procedural style inspired by the structured models of programming. In short, many application developers write in the relational database exactly like in the user interface. The other style of programming is holistic, data set oriented, and coded mainly in SQL. This is the style of the database developer.\r\n\r\nThe set based and holistic style of development is not promoted enough in universities, and many application developers are not fully aware of it. There are many performance issues all over the world in relational databases due to the use of the atomic and inappropriate style of programming. This book compares the two styles, and promotes the holistic style of development as the most suitable one. Examples are given to demonstrate the superiority of a set-based and holistic approach.",
+    "authors": [
+      1
+    ]
+  }
+},
+{
+  "model": "books.book",
+  "pk": 2,
+  "fields": {
+    "items": null,
+    "reservation": null,
+    "publisher": "Packt Publishing",
+    "title": "Scala High Performance Programming",
+    "isbn": "978-1-78646-604-4",
+    "edition": null,
+    "edition_date": null,
+    "pages": 274,
+    "available": 6,
+    "description": "Scala is a statically and strongly typed language that blends functional and object-oriented paradigms. It has experienced growing popularity as an appealing and pragmatic choice to write production-ready software in the functional paradigm. Scala and the functional programming paradigm enable you to solve problems with less code and lower maintenance costs than the alternatives. However, these gains can come at the cost of performance if you are not careful.\r\n\r\nScala High Performance Programming arms you with the knowledge you need to create performant Scala applications. Starting with the basics of understanding how to define performance, we explore Scala's language features and functional programming techniques while keeping a close eye on performance throughout all the topics.\r\n\r\nWe introduce you as the newest software engineer at a fictitious financial trading company, named MV Trading. As you learn new techniques and approaches to reduce latency and improve throughput, you'll apply them to MV Trading's business problems. By the end of the book, you will be well prepared to write production-ready, performant Scala software using the functional paradigm to solve real-world problems.",
+    "authors": [
+      2,
+      3
+    ]
+  }
+},
+{
+  "model": "books.book",
+  "pk": 3,
+  "fields": {
+    "items": null,
+    "reservation": null,
+    "publisher": "Packt Publishing",
+    "title": "Expert Python Programming",
+    "isbn": "978-1-78588-685-0",
+    "edition": 2,
+    "edition_date": null,
+    "pages": 536,
+    "available": 2,
+    "description": "Python is a dynamic programming language, used in a wide range of domains by programmers who find it simple, yet powerful. Even if you find writing Python code easy, writing code that is efficient and easy to maintain and reuse is a challenge.\r\n\r\nThe focus of the book is to familiarize you with common conventions, best practices, useful tools and standards used by python professionals on a daily basis when working with code.\r\n\r\nYou will begin with knowing new features in Python 3.5 and quick tricks for improving productivity. Next, you will learn advanced and useful python syntax elements brought to this new version. Using advanced object-oriented concepts and mechanisms available in python, you will learn different approaches to implement metaprogramming. You will learn to choose good names, write packages, and create standalone executables easily.\r\n\r\nYou will also be using some powerful tools such as buildout and vitualenv to release and deploy the code on remote servers for production use. Moving on, you will learn to effectively create Python extensions with C, C++, cython, and pyrex. The important factors while writing code such as code management tools, writing clear documentation, and test-driven development are also covered.",
+    "authors": [
+      4,
+      5
+    ]
+  }
+},
+{
+  "model": "books.book",
+  "pk": 4,
+  "fields": {
+    "items": null,
+    "reservation": null,
+    "publisher": "No Starch Press",
+    "title": "Python Crash Course",
+    "isbn": "978-1-59327-603-4",
+    "edition": null,
+    "edition_date": null,
+    "pages": 560,
+    "available": 1,
+    "description": "Python Crash Course is a fast-paced, thorough introduction to Python that will have you writing programs, solving problems, and making things that work in no time.\r\n\r\nIn the first half of the book, you'll learn about basic programming concepts, such as lists, dictionaries, classes, and loops, and practice writing clean and readable code with exercises for each topic. You'll also learn how to make your programs interactive and how to test your code safely before adding it to a project. In the second half of the book, you'll put your new knowledge into practice with three substantial projects: a Space Invaders\u2013inspired arcade game, data visualizations with Python's super-handy libraries, and a simple web app you can deploy online.",
+    "authors": [
+      6
+    ]
+  }
+},
+{
+  "model": "books.book",
+  "pk": 5,
+  "fields": {
+    "items": null,
+    "reservation": null,
+    "publisher": "Packt Publishing",
+    "title": "Python Unlocked",
+    "isbn": "978-1-78588-599-0",
+    "edition": null,
+    "edition_date": null,
+    "pages": 172,
+    "available": 2,
+    "description": "Python is a versatile programming language that can be used for a wide range of technical tasks\u2014computation, statistics, data analysis, game development, and more. Though Python is easy to learn, it's range of features means there are many aspects of it that even experienced Python developers don't know about. Even if you're confident with the basics, its logic and syntax, by digging deeper you can work much more effectively with Python \u2013 and get more from the language.\r\n\r\nPython Unlocked walks you through the most effective techniques and best practices for high performance Python programming - showing you how to make the most of the Python language. You'll get to know objects and functions inside and out, and will learn how to use them to your advantage in your programming projects. You will also find out how to work with a range of design patterns including abstract factory, singleton, strategy pattern, all of which will help make programming with Python much more efficient. Finally, as the process of writing a program is never complete without testing it, you will learn to test threaded applications and run parallel tests.",
+    "authors": [
+      7
+    ]
+  }
+},
+{
+  "model": "books.book",
+  "pk": 6,
+  "fields": {
+    "items": null,
+    "reservation": null,
+    "publisher": "No Starch Press",
+    "title": "Doing Math with Python",
+    "isbn": "978-1-59327-640-9",
+    "edition": null,
+    "edition_date": null,
+    "pages": 264,
+    "available": 5,
+    "description": "Doing Math with Python shows you how to use Python to delve into high school\u2013level math topics like statistics, geometry, probability, and calculus. You'll start with simple projects, like a factoring program and a quadratic-equation solver, and then create more complex projects once you've gotten the hang of things.\r\n\r\nAlong the way, you'll discover new ways to explore math and gain valuable programming skills that you'll use throughout your study of math and computer science.\r\n\r\nCreative coding challenges and applied examples help you see how you can put your new math and coding skills into practice. You'll write an inequality solver, plot gravity's effect on how far a bullet will travel, shuffle a deck of cards, estimate the area of a circle by throwing 100,000 darts at a board, explore the relationship between the Fibonacci sequence and the golden ratio, and more.",
+    "authors": [
+      8
+    ]
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 1,
+  "fields": {
+    "name": "Can add log entry",
+    "content_type": 1,
+    "codename": "add_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 2,
+  "fields": {
+    "name": "Can change log entry",
+    "content_type": 1,
+    "codename": "change_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 3,
+  "fields": {
+    "name": "Can delete log entry",
+    "content_type": 1,
+    "codename": "delete_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 4,
+  "fields": {
+    "name": "Can add permission",
+    "content_type": 2,
+    "codename": "add_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 5,
+  "fields": {
+    "name": "Can change permission",
+    "content_type": 2,
+    "codename": "change_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 6,
+  "fields": {
+    "name": "Can delete permission",
+    "content_type": 2,
+    "codename": "delete_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 7,
+  "fields": {
+    "name": "Can add group",
+    "content_type": 3,
+    "codename": "add_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 8,
+  "fields": {
+    "name": "Can change group",
+    "content_type": 3,
+    "codename": "change_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 9,
+  "fields": {
+    "name": "Can delete group",
+    "content_type": 3,
+    "codename": "delete_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 10,
+  "fields": {
+    "name": "Can add user",
+    "content_type": 4,
+    "codename": "add_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 11,
+  "fields": {
+    "name": "Can change user",
+    "content_type": 4,
+    "codename": "change_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 12,
+  "fields": {
+    "name": "Can delete user",
+    "content_type": 4,
+    "codename": "delete_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 13,
+  "fields": {
+    "name": "Can add content type",
+    "content_type": 5,
+    "codename": "add_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 14,
+  "fields": {
+    "name": "Can change content type",
+    "content_type": 5,
+    "codename": "change_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 15,
+  "fields": {
+    "name": "Can delete content type",
+    "content_type": 5,
+    "codename": "delete_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 16,
+  "fields": {
+    "name": "Can add session",
+    "content_type": 6,
+    "codename": "add_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 17,
+  "fields": {
+    "name": "Can change session",
+    "content_type": 6,
+    "codename": "change_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 18,
+  "fields": {
+    "name": "Can delete session",
+    "content_type": 6,
+    "codename": "delete_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 19,
+  "fields": {
+    "name": "Can add reader",
+    "content_type": 7,
+    "codename": "add_reader"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 20,
+  "fields": {
+    "name": "Can change reader",
+    "content_type": 7,
+    "codename": "change_reader"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 21,
+  "fields": {
+    "name": "Can delete reader",
+    "content_type": 7,
+    "codename": "delete_reader"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 22,
+  "fields": {
+    "name": "Can add author",
+    "content_type": 8,
+    "codename": "add_author"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 23,
+  "fields": {
+    "name": "Can change author",
+    "content_type": 8,
+    "codename": "change_author"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 24,
+  "fields": {
+    "name": "Can delete author",
+    "content_type": 8,
+    "codename": "delete_author"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 25,
+  "fields": {
+    "name": "Can add loan",
+    "content_type": 9,
+    "codename": "add_loan"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 26,
+  "fields": {
+    "name": "Can change loan",
+    "content_type": 9,
+    "codename": "change_loan"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 27,
+  "fields": {
+    "name": "Can delete loan",
+    "content_type": 9,
+    "codename": "delete_loan"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 28,
+  "fields": {
+    "name": "Can add reservation",
+    "content_type": 10,
+    "codename": "add_reservation"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 29,
+  "fields": {
+    "name": "Can change reservation",
+    "content_type": 10,
+    "codename": "change_reservation"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 30,
+  "fields": {
+    "name": "Can delete reservation",
+    "content_type": 10,
+    "codename": "delete_reservation"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 31,
+  "fields": {
+    "name": "Can add item",
+    "content_type": 11,
+    "codename": "add_item"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 32,
+  "fields": {
+    "name": "Can change item",
+    "content_type": 11,
+    "codename": "change_item"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 33,
+  "fields": {
+    "name": "Can delete item",
+    "content_type": 11,
+    "codename": "delete_item"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 34,
+  "fields": {
+    "name": "Can add book",
+    "content_type": 12,
+    "codename": "add_book"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 35,
+  "fields": {
+    "name": "Can change book",
+    "content_type": 12,
+    "codename": "change_book"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 36,
+  "fields": {
+    "name": "Can delete book",
+    "content_type": 12,
+    "codename": "delete_book"
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$24000$8YV77BivqN9x$t3ZVRAaAcLaVs2dg4KOppEPBYhFap009l7JbC1OvPIU=",
+    "last_login": "2016-08-22T20:46:03.557Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin@admin.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2016-08-18T20:22:32.418Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 1,
+  "fields": {
+    "action_time": "2016-08-22T20:47:22.257Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "1",
+    "object_repr": "Stefan Ardeleanu",
+    "action_flag": 1,
+    "change_message": "Added."
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 2,
+  "fields": {
+    "action_time": "2016-08-22T21:06:16.486Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "1",
+    "object_repr": "Book object",
+    "action_flag": 1,
+    "change_message": "Added."
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 3,
+  "fields": {
+    "action_time": "2016-08-22T21:23:59.027Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "2",
+    "object_repr": "Vincent Theron",
+    "action_flag": 1,
+    "change_message": "Added."
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 4,
+  "fields": {
+    "action_time": "2016-08-22T21:24:12.977Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "3",
+    "object_repr": "Michael Diamant",
+    "action_flag": 1,
+    "change_message": "Added."
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 5,
+  "fields": {
+    "action_time": "2016-08-22T21:24:25.563Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "2",
+    "object_repr": "Scala High Performance Programming",
+    "action_flag": 1,
+    "change_message": "Added."
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 6,
+  "fields": {
+    "action_time": "2016-08-22T21:25:17.440Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "4",
+    "object_repr": "Michal Jaworski",
+    "action_flag": 1,
+    "change_message": "Added."
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 7,
+  "fields": {
+    "action_time": "2016-08-22T21:25:28.137Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "5",
+    "object_repr": "Tarek Ziade",
+    "action_flag": 1,
+    "change_message": "Added."
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 8,
+  "fields": {
+    "action_time": "2016-08-22T21:26:30.462Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "3",
+    "object_repr": "Expert Python Programming",
+    "action_flag": 1,
+    "change_message": "Added."
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 9,
+  "fields": {
+    "action_time": "2016-08-22T21:27:28.433Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "6",
+    "object_repr": "Eric Matthes",
+    "action_flag": 1,
+    "change_message": "Added."
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 10,
+  "fields": {
+    "action_time": "2016-08-22T21:30:10.843Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "4",
+    "object_repr": "Python Crash Course",
+    "action_flag": 1,
+    "change_message": "Added."
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 11,
+  "fields": {
+    "action_time": "2016-08-22T21:31:17.434Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "7",
+    "object_repr": "Arun Tigeraniya",
+    "action_flag": 1,
+    "change_message": "Added."
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 12,
+  "fields": {
+    "action_time": "2016-08-22T21:31:27.528Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "5",
+    "object_repr": "Python Unlocked",
+    "action_flag": 1,
+    "change_message": "Added."
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 13,
+  "fields": {
+    "action_time": "2016-08-22T21:38:50.342Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "8",
+    "object_repr": "Amit Saha",
+    "action_flag": 1,
+    "change_message": "Added."
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 14,
+  "fields": {
+    "action_time": "2016-08-22T21:38:59.646Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "6",
+    "object_repr": "Doing Math with Python",
+    "action_flag": 1,
+    "change_message": "Added."
+  }
+}
+]

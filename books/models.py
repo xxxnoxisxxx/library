@@ -9,12 +9,12 @@ class Author(models.Model):
 
 	name = models.CharField(max_length=35)
 	surname = models.CharField(max_length=35)
-	
-	def __unicode__(self):
-		return '%s %s' % (self.name, self.surname)
 		
 	class Meta:
 		db_table = 'author'
+
+	def __unicode__(self):
+		return '%s %s' % (self.name, self.surname)
 
 
 class Loan(models.Model):
@@ -37,8 +37,6 @@ class Reservation(models.Model):
 	class Meta:
 		db_table = 'reservation'
 	
-
-
 class Item(models.Model):
 	"""Class represents book item"""
 
@@ -52,17 +50,20 @@ class Book(models.Model):
 	"""Class represents book"""
 
 	authors = models.ManyToManyField(Author, blank=True)
-	items = models.ForeignKey(Item, blank=True, on_delete=models.CASCADE)
-	reservation = models.ForeignKey(Reservation, blank=True, on_delete=models.CASCADE)
+	items = models.ForeignKey(Item, blank=True, null=True, on_delete=models.CASCADE, )
+	reservation = models.ForeignKey(Reservation, blank=True, null=True, on_delete=models.CASCADE)
 
 	publisher = models.CharField(max_length=50)
 	title = models.CharField(max_length=50)
-	isbn = models.IntegerField()
-	edition = models.IntegerField()
-	edition_date = models.DateField()
+	isbn = models.CharField(max_length=20)
+	edition = models.IntegerField(blank=True, null=True)
+	edition_date = models.DateField(blank=True, null=True)
 	pages = models.IntegerField()
 	available = models.IntegerField()
 	description = models.TextField()
 	
 	class Meta:
-		db_table = 'book'	
+		db_table = 'book'
+
+	def __unicode__(self):
+		return self.title	

@@ -4,7 +4,9 @@ from .models import *
 
 @admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):
-    pass
+	list_display = ('__unicode__','name', 'surname')
+	list_filter = ('surname',)
+ 
 
 @admin.register(Loan)
 class LoanAdmin(admin.ModelAdmin):
