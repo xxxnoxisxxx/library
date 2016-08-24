@@ -41,6 +41,8 @@ run(){
 
 loaddata(){
 	source $VIRTUALENV_NAME/bin/activate; 
+	migrations
+	migrate
 	echo "yes" | python manage.py flush
 	python manage.py loaddata $DB_JSON; 
 	deactivate
@@ -58,6 +60,15 @@ collectstatic(){
 	deactivate
 }
 
+check_sw(){
+	source $VIRTUALENV_NAME/bin/activate; 
+	pip_sw=`pip freeze`
+	echo $PIP_SW
+	deactivate
+}
+
+
+
 
 show_help(){
 	echo "--------------------------------------------"
@@ -72,6 +83,7 @@ show_help(){
 	echo "    loaddata"
 	echo "    dump"
 	echo "    collectstatic"
+	echo "    check_sw"
 }
 #####################################################
 #                       MAIN                        #
@@ -91,5 +103,6 @@ case "$1" in
   "loaddata") 		loaddata ;;
   "dump") 			dump ;;
   "collectstatic") 	collectstatic ;;
+  "check_sw")       check_sw;;
   *) 				show_help ;;
 esac
