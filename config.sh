@@ -143,3 +143,4 @@ case "$1" in
   "funtests")       funtests;;
   *) 				show_help ;;
 esac
+
