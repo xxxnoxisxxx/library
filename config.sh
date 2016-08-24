@@ -103,7 +103,7 @@ check_sw(){
 
 funtests(){
 	source $VIRTUALENV_NAME/bin/activate; 
-	python functional_test/tests.py 
+	python manage.py test functional_tests
 	deactivate
 }
 
@@ -146,6 +146,6 @@ case "$1" in
   "collectstatic") 	collectstatic ;;
   "check_sw")       check_sw;;
   "funtests")       funtests;;
-  *) 				show_help ;;
+  *) 				show_help
 esac
 
