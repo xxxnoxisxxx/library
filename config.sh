@@ -34,6 +34,11 @@ prepare_env(){
 		$PIP install django-crispy-forms
 	fi
 
+	$PIP freeze | grep djangorestframework >/dev/null
+	if [ $? -ne 0 ]; then
+		$PIP install djangorestframework
+	fi
+
 	$PIP install --upgrade selenium
 
 	deactivate
