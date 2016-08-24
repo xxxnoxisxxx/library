@@ -17,11 +17,15 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic.base import RedirectView
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^account/', include('account.urls')),
     url(r'^books/', include('books.urls')),
+    url(r'^$', RedirectView.as_view(url='books/', permanent=False)),
+
+    
 ]
 
 if settings.DEBUG:
