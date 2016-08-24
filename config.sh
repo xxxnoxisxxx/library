@@ -89,6 +89,20 @@ check_sw(){
 	deactivate
 }
 
+check_sw(){
+	source $VIRTUALENV_NAME/bin/activate; 
+	pip_sw=`pip freeze`
+	echo $PIP_SW
+	deactivate
+}
+
+funtests(){
+	source $VIRTUALENV_NAME/bin/activate; 
+	python functional_test/tests.py 
+	deactivate
+}
+
+
 
 
 
@@ -126,5 +140,6 @@ case "$1" in
   "dump") 			dump ;;
   "collectstatic") 	collectstatic ;;
   "check_sw")       check_sw;;
+  "funtests")       funtests;;
   *) 				show_help ;;
 esac
