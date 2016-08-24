@@ -7,13 +7,35 @@ DB_JSON="books/fixtures/initial_data.json"
 PIP=$(ls /usr/bin/ | grep pip2)
 
 prepare_env(){
-	sudo apt-get install -y python-pip
-	sudo $PIP install virtualenv
 
-	virtualenv -p $VIRTUALENV_PATH $VIRTUALENV_NAME
+	dpkg -l | grep pip >/dev/null
+	if [ $? -ne 0 ]; then
+		sudo apt-get install -y python-pip
+	fi
+
+	$PIP freeze | grep virtualenv >/dev/null
+	if [ $? -ne 0 ]; then
+		sudo $PIP install virtualenv
+	fi
+	
+	if [ ! -d $VIRTUALENV_NAME ]; then
+		virtualenv -p $VIRTUALENV_PATH $VIRTUALENV_NAME
+	fi
+
 	source $VIRTUALENV_NAME/bin/activate
-	$PIP install Django==1.9.8
-	$PIP install django-crispy-forms
+
+	$PIP freeze | grep Django==1.9.8 >/dev/null
+	if [ $? -ne 0 ]; then
+		$PIP install Django==1.9.8
+	fi
+
+	$PIP freeze | grep crispy >/dev/null
+	if [ $? -ne 0 ]; then
+		$PIP install django-crispy-forms
+	fi
+
+	$PIP install --upgrade selenium
+
 	deactivate
 
 	migrations
@@ -67,6 +89,20 @@ check_sw(){
 	deactivate
 }
 
+check_sw(){
+	source $VIRTUALENV_NAME/bin/activate; 
+	pip_sw=`pip freeze`
+	echo $PIP_SW
+	deactivate
+}
+
+funtests(){
+	source $VIRTUALENV_NAME/bin/activate; 
+	python functional_test/tests.py 
+	deactivate
+}
+
+
 
 
 
@@ -104,5 +140,6 @@ case "$1" in
   "dump") 			dump ;;
   "collectstatic") 	collectstatic ;;
   "check_sw")       check_sw;;
+  "funtests")       funtests;;
   *) 				show_help ;;
 esac
