@@ -18,6 +18,8 @@ class NewVisitorTest(LiveServerTestCase):
 
 		self.browser.get(self.live_server_url)
 		
+		import time
+		time.sleep(5)
 		self.assertIn('Login', self.browser.title)
 		header_text = self.browser.find_element_by_tag_name('h2').text 
 		self.assertIn('Library', header_text)
