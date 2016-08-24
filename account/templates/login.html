@@ -12,6 +12,7 @@
     {{ form | crispy }}
     <input type="submit" value="Login" class="btn btn-primary"/>
 </form>
+    <a href="{% url 'register' %}" class="top-menu">You don't have an account ?</a>
 </div>
 </div>
 {% endblock %}

@@ -51,13 +51,13 @@ migrate(){
 
 migrations(){
 	source $VIRTUALENV_NAME/bin/activate; 
-	python manage.py makemigrations; 
+	python manage.py makemigrations;
 	deactivate
 }
 
 run(){
 	source $VIRTUALENV_NAME/bin/activate; 
-	python manage.py runserver 0.0.0.0:8000; 
+	python manage.py runserver 0.0.0.0:8000;
 	deactivate
 }
 
@@ -66,7 +66,7 @@ loaddata(){
 	migrations
 	migrate
 	echo "yes" | python manage.py flush
-	python manage.py loaddata $DB_JSON; 
+	python manage.py loaddata $DB_JSON;
 	deactivate
 }
 
@@ -78,7 +78,7 @@ dump(){
 
 collectstatic(){
 	source $VIRTUALENV_NAME/bin/activate; 
-	python manage.py collectstatic; 
+	python manage.py collectstatic;
 	deactivate
 }
 
