@@ -34,10 +34,8 @@ prepare_env(){
 		$PIP install django-crispy-forms
 	fi
 
-	$PIP freeze | grep djangorestframework >/dev/null
-	if [ $? -ne 0 ]; then
-		$PIP install djangorestframework
-	fi
+
+	$PIP install --upgrade djangorestframework
 
 	$PIP install --upgrade selenium
 
@@ -67,9 +65,9 @@ run(){
 }
 
 loaddata(){
-	source $VIRTUALENV_NAME/bin/activate; 
 	migrations
 	migrate
+	source $VIRTUALENV_NAME/bin/activate; 
 	echo "yes" | python manage.py flush
 	python manage.py loaddata $DB_JSON; 
 	deactivate
