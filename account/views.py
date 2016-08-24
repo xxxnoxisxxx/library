@@ -5,17 +5,18 @@ from django.views.generic import FormView, View
 from forms import LoginForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse_lazy, reverse
 # Create your views here.
 
-class LoginRequiredMixin(object):
-	@method_decorator(login_required)
-	def dispatch(self, request, *args, **kwargs):
-		return super(LoginRequiredMixin, self).dispatch(request, *args, **kwargs)
+# class LoginRequiredMixin(object):
+# 	@method_decorator(login_required)
+# 	def dispatch(self, request, *args, **kwargs):
+# 		return super(LoginRequiredMixin, self).dispatch(request, *args, **kwargs)
 
 class LoginPageView(FormView):
 	template_name = 'login.html'
 	form_class = LoginForm
-	success_url = '/'
+	success_url = reverse_lazy('dashboard')
 
 	def get(self, request, *args, **kwargs):
 		if request.user.is_authenticated():
@@ -43,4 +44,4 @@ class LogoutPageView(View):
 			logout(request)
 			return render(request, self.template_name)
 		else:
-			return HttpResponseRedirect('/')
+			return HttpResponseRedirect(reverse('dashboard'))
