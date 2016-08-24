@@ -39,10 +39,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
-    'main',
-    'account',
     'books',
-)
+    'account',
+    )
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -137,7 +136,7 @@ else:
 # Przekierowania
 LOGIN_URL = reverse_lazy('login')
 # LOGOUT_URL = reverse_lazy('logout')
-#LOGIN_REDIRECT_URL = 'accounts/login'
+LOGIN_REDIRECT_URL = 'accounts/login'
 
 # Konfiguracja emaila
 EMAIL_HOST = 'smtp.gmail.com'
