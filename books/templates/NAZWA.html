@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}Main Page{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h2>Library <small>Main Page1111</small>
+    </h2> 
+</div>
+<div class="row">
+<div class="col-lg-12">
+
+<table id="book-wrapper" class="display" width="100%" cellspacing="0">
+<thead>
+	<tr>
+		<th>Publisher</th>
+		<th>Title</th>
+		<th>ISBN</th>
+		<th>Edition</th>
+		<th>Edition_date</th>
+		<th>Pages</th>
+		<th>available</th>
+		<th>description</th>
+
+	</tr>
+</thead>
+<tbody>
+{% for NAZWA in books %}
+<tr>
+	<td>{{NAZWA.publisher}}</td>
+	<td>{{NAZWA.title}}</td>
+	<td>{{NAZWA.isbn}}</td>
+	<td>{{NAZWA.edition}}</td>
+	<td>{{NAZWA.edition_date}}</td>
+	<td>{{NAZWA.pages}}</td>
+	<td>{{NAZWA.available}}</td>
+	<td>{{NAZWA.available}}</td>
+</tr>
+</tbody>
+
+{% endfor %}
+</table>
+
+</div>
+</div>
+{% endblock %}
+
+
+{% block js %}
+
+    <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+    
+    <script src="{% static "js/books.js" %}"></script>
+
+{% endblock %}
+
+
+
