@@ -1,0 +1,32 @@
+[
+    { 
+        "model": "books.Author", 
+        "pk": 0,
+        "fields": { 
+            "name": "Harry",
+            "surname": "Percival"
+        }
+     },
+     { 
+        "model": "books.Author", 
+        "pk": 1,
+        "fields": { 
+            "name": "Włodzimierz",
+            "surname": "Gajda"
+        }
+     },
+     { 
+        "model": "books.Publisher", 
+        "pk": 0,
+        "fields": { 
+            "name": "Helion"
+        }
+     },
+     { 
+        "model": "books.Publisher", 
+        "pk": 1,
+        "fields": { 
+            "name": "O'Reilly"
+        }
+     }
+]

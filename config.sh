@@ -3,7 +3,8 @@
 VIRTUALENV_PATH="/usr/bin/python2.7"
 VIRTUALENV_NAME="../env"
 PROJECT_NAME="library"
-DB_JSON="books/fixtures/initial_data.json"
+DB_INITIAL="books/fixtures/initial_data.json"
+DB_DUMP="books/fixtures/dump_data.json"
 PIP=$(ls /usr/bin/ | grep pip2)
 
 prepare_env(){
@@ -76,14 +77,26 @@ loaddata(){
 	migrate
 	source $VIRTUALENV_NAME/bin/activate; 
 	echo "yes" | python manage.py flush
-	python manage.py loaddata $DB_JSON;
+	
+    echo ""
+    echo "Select: [ init / dump ]"
+    read type
+    echo $type
+    if [ "$type" == "init" ]; then
+            python manage.py loaddata $DB_INITIAL;
+    elif [ "$type" == "dump" ]; then
+            python manage.py loaddata $DB_DUMP;
+    else
+            echo "Error: Wrong argument. Exit."
+    fi
+
 	deactivate
 }
 
 dump(){
 	source $VIRTUALENV_NAME/bin/activate; 
-	python manage.py dumpdata --indent 2 > $DB_JSON;
-	deactivate
+	rm $DB_DUMP
+	python manage.py dumpdata --indent 2 > $DB_DUMP;
 }
 
 collectstatic(){
@@ -117,7 +130,11 @@ mm(){
 	migrate
 }
 
-
+csu(){
+    source $VIRTUALENV_NAME/bin/activate;
+    python manage.py createsuperuser
+    deactivate
+}
 
 
 show_help(){
@@ -136,6 +153,7 @@ show_help(){
 	echo "    check_sw"
 	echo "    funtests"
 	echo "    mm"
+	echo "    csu"
 }
 #####################################################
 #                       MAIN                        #
@@ -158,6 +176,7 @@ case "$1" in
   "check_sw")       check_sw;;
   "funtests")       funtests;;
   "mm")       		mm;;
+  "csu")            csu;;
   *) 				show_help
 esac
 

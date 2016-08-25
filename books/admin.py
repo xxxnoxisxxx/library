@@ -19,7 +19,11 @@ class ReservationAdmin(admin.ModelAdmin):
 @admin.register(Item)
 class ItemAdmin(admin.ModelAdmin):
     pass
-
+    
+@admin.register(Publisher)
+class PublisherAdmin(admin.ModelAdmin):
+    pass
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
     pass
+
