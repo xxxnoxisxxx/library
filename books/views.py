@@ -18,4 +18,3 @@ class BookView(View):
 	def get(self, request, *args, **kwargs):
 		books = Book.objects.all()
 		return render(request, self.template_name, {'books':books})
-		#pass
