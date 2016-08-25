@@ -41,7 +41,7 @@ class Reservation(models.Model):
 class Item(models.Model):
     """Class represents book item"""
 
-    loans = models.ForeignKey(Loan, blank=True, on_delete=models.CASCADE)
+    loans = models.ForeignKey(Loan, blank=True, null=True, on_delete=models.CASCADE)
     available = models.BooleanField()
 
     class Meta:
