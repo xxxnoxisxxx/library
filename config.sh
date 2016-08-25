@@ -77,7 +77,7 @@ loaddata(){
 
 dump(){
 	source $VIRTUALENV_NAME/bin/activate; 
-	python manage.py dumpdata --indent 2 > $DB_JSON;
+	python manage.py dumpdata --indent 2 books auth.User > $DB_JSON;
 	deactivate
 }
 
@@ -149,3 +149,4 @@ case "$1" in
   *) 				show_help
 esac
 
+#http://stackoverflow.com/questions/1338728/delete-commits-from-a-branch-in-git
