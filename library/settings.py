@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'crispy_forms',
     'books',
     'account',
@@ -148,3 +149,9 @@ EMAIL_USE_TLS = True
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 #BOOTSTRAP_ADMIN_SIDEBAR_MENU = True
 ADMIN_MEDIA_PREFIX = '/static/admin/' 
+
+REST_FRAMEWORK = {
+'DEFAULT_PERMISSION_CLASSES': [
+'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+]
+}

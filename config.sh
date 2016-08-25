@@ -34,6 +34,9 @@ prepare_env(){
 		$PIP install django-crispy-forms
 	fi
 
+
+	$PIP install --upgrade djangorestframework
+
 	$PIP install --upgrade selenium
 
 	deactivate
@@ -62,9 +65,9 @@ run(){
 }
 
 loaddata(){
-	source $VIRTUALENV_NAME/bin/activate; 
 	migrations
 	migrate
+	source $VIRTUALENV_NAME/bin/activate; 
 	echo "yes" | python manage.py flush
 	python manage.py loaddata $DB_JSON;
 	deactivate
@@ -98,7 +101,7 @@ check_sw(){
 
 funtests(){
 	source $VIRTUALENV_NAME/bin/activate; 
-	python functional_test/tests.py 
+	python manage.py test functional_tests
 	deactivate
 }
 
@@ -141,6 +144,6 @@ case "$1" in
   "collectstatic") 	collectstatic ;;
   "check_sw")       check_sw;;
   "funtests")       funtests;;
-  *) 				show_help ;;
+  *) 				show_help
 esac
 
