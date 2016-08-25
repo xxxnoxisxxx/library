@@ -14,7 +14,10 @@
 
     <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
     <link href="{% static "css/simple-sidebar.css" %}" rel="stylesheet">
-    <link href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    {% block css %}
+    
+    {% endblock %}
 
 </head>
 
@@ -31,6 +34,9 @@
                     <a href="{% url 'dashboard' %}">Main Page</a>
                 </li>
                 {% if user.is_authenticated %}
+                <li>
+                    <a href="{% url 'bookWrapper' %}">Show books</a>
+                </li>
                 <li>
                     <a href="{% url 'logout' %}">Logout</a>
                 </li>
@@ -51,7 +57,14 @@
 
     <script src="{% static "js/jquery.js" %}"></script>
     <script src="{% static "js/bootstrap.min.js" %}"></script>
-    <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+
+    
+	{% block js %}
+    
+    	{% endblock %}
+
+
+    
 </body>
 
 </html>
