@@ -29,7 +29,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
-    # 'bootstrap_admin',
+    'bootstrap_admin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -141,8 +141,8 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
-# BOOTSTRAP_ADMIN_SIDEBAR_MENU = True
-ADMIN_MEDIA_PREFIX = '/static/admin/'
+BOOTSTRAP_ADMIN_SIDEBAR_MENU = True
+#ADMIN_MEDIA_PREFIX = '/static/admin/'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
@@ -155,3 +155,4 @@ from django.contrib.messages import constants as messages
 MESSAGE_TAGS = {
     messages.ERROR: 'danger'
 }
+

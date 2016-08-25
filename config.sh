@@ -39,6 +39,11 @@ prepare_env(){
 		$PIP install --upgrade djangorestframework
 	fi
 
+	$PIP freeze | grep bootstrap-admin >/dev/null
+	if [ $? -ne 0 ]; then
+		$PIP install bootstrap-admin
+	fi
+
 	$PIP install --upgrade selenium
 
 	deactivate
