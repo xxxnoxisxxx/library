@@ -47,6 +47,7 @@ class Item(models.Model):
     class Meta:
         db_table = 'item'
 
+<<<<<<< HEAD
 
 class Book(models.Model):
     """Class represents book"""
@@ -69,3 +70,31 @@ class Book(models.Model):
 
     def __unicode__(self):
         return self.title
+=======
+	loans = models.ForeignKey(Loan, blank=True, null=True, on_delete=models.CASCADE)
+	available = models.BooleanField()
+	
+	class Meta:
+		db_table = 'item'
+
+class Book(models.Model):
+	"""Class represents book"""
+
+	authors = models.ManyToManyField(Author, blank=True)
+	items = models.ForeignKey(Item, blank=True, null=True, on_delete=models.CASCADE, )
+	reservation = models.ForeignKey(Reservation, blank=True, null=True, on_delete=models.CASCADE)
+
+	publisher = models.CharField(max_length=50)
+	title = models.CharField(max_length=50)
+	isbn = models.CharField(max_length=20)
+	edition = models.IntegerField(blank=True, null=True)
+	edition_date = models.DateField(blank=True, null=True)
+	pages = models.IntegerField()
+	description = models.TextField()
+	
+	class Meta:
+		db_table = 'book'
+
+	def __unicode__(self):
+		return self.title	
+>>>>>>> b518e97fa62b22de730c4a08f333a5e8899137fc
