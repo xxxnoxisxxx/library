@@ -13,9 +13,8 @@ class LoginForm(forms.ModelForm):
 
 
 class RegisterUserForm(forms.ModelForm):
-
     password_confirm = forms.CharField(widget=forms.PasswordInput())
-    
+
     def __init__(self, *args, **kwargs):
         super(RegisterUserForm, self).__init__(*args, **kwargs)
 
@@ -34,7 +33,6 @@ class RegisterUserForm(forms.ModelForm):
             'password_confirm': _('Confirm password')
         }
 
-
     def clean_password_confirm(self):
         cd = self.cleaned_data
         if cd['password'] != cd['password_confirm']:
@@ -43,7 +41,6 @@ class RegisterUserForm(forms.ModelForm):
 
 
 class RegisterReaderForm(forms.ModelForm):
-
     class Meta:
         model = Reader
         fields = ('id_card', 'mobile')
