@@ -3,6 +3,7 @@ from django.core.urlresolvers import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import FormView, View
+from django.contrib.auth.models import User
 
 from forms import LoginForm, RegisterUserForm
 
@@ -54,19 +55,11 @@ class RegisterNewUserView(FormView):
         email = request.POST.get('email')
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
-        #
-        # print(username)
-        # print (password)
-        # print (password_confirm)
-        # print (email)
-        # print (first_name)
-        # print (last_name)
-        #
         if password == password_confirm:
-            print ("Passwords match!")
             user = User(username=username, password=password, email=email, first_name=first_name,
                         last_name=last_name)
             user.save()
+            return HttpResponseRedirect(self.get_success_url())
         form = self.form_class
         return render(request, self.template_name, {'form': form})
 
