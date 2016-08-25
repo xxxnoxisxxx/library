@@ -34,8 +34,10 @@ prepare_env(){
 		$PIP install django-crispy-forms
 	fi
 
-
-	$PIP install --upgrade djangorestframework
+	$PIP freeze | grep djangorestframework >/dev/null
+	if [ $? -ne 0 ]; then
+		$PIP install --upgrade djangorestframework
+	fi
 
 	$PIP install --upgrade selenium
 
