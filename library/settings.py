@@ -131,18 +131,12 @@ else:
 # Przekierowania
 LOGIN_URL = reverse_lazy('login')
 # LOGOUT_URL = reverse_lazy('logout')
-LOGIN_REDIRECT_URL = 'accounts/login'
+# LOGIN_REDIRECT_URL = 'accounts/login'
 
-# Konfiguracja emaila
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'aghwfiis@gmail.com'
-EMAIL_HOST_PASSWORD = 'lajkonik'
-EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 BOOTSTRAP_ADMIN_SIDEBAR_MENU = True
-#ADMIN_MEDIA_PREFIX = '/static/admin/'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
