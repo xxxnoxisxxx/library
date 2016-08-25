@@ -149,3 +149,4 @@ case "$1" in
   *) 				show_help
 esac
 
+#http://stackoverflow.com/questions/1338728/delete-commits-from-a-branch-in-git
