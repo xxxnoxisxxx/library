@@ -21,12 +21,3 @@ class Reader(models.Model):
     def __unicode__(self):
         return '%s %s' % (reader.last_name, reader.first_name)
 
-
-class LibraryUser(models.Model):
-    """Class represents library user"""
-    username = models.CharField(max_length=30)
-    password1 = models.CharField(max_length=30, blank=False)
-    password2 = models.CharField(max_length=30, blank=False)
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=40)
-    email = models.EmailField()

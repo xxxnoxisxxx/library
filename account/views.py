@@ -4,16 +4,17 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import FormView, View
 from django.contrib.auth.models import User
-
+from django.utils.decorators import method_decorator
 from forms import LoginForm, RegisterUserForm
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
 
-# class LoginRequiredMixin(object):
-# 	@method_decorator(login_required)
-# 	def dispatch(self, request, *args, **kwargs):
-# 		return super(LoginRequiredMixin, self).dispatch(request, *args, **kwargs)
+class LoginRequiredMixin(object):
+	@method_decorator(login_required)
+	def dispatch(self, request, *args, **kwargs):
+		return super(LoginRequiredMixin, self).dispatch(request, *args, **kwargs)
 
 class LoginPageView(FormView):
     template_name = 'login.html'
@@ -64,7 +65,7 @@ class RegisterNewUserView(FormView):
         return render(request, self.template_name, {'form': form})
 
 
-class LogoutPageView(View):
+class LogoutPageView(LoginRequiredMixin, View):
     template_name = 'logout.html'
 
     def get(self, request, *args, **kwargs):
