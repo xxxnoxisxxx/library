@@ -107,6 +107,10 @@ funtests(){
 	deactivate
 }
 
+mm(){
+	migrations
+	migrate
+}
 
 
 
@@ -125,6 +129,8 @@ show_help(){
 	echo "    dump"
 	echo "    collectstatic"
 	echo "    check_sw"
+	echo "    funtests"
+	echo "    mm"
 }
 #####################################################
 #                       MAIN                        #
@@ -146,6 +152,8 @@ case "$1" in
   "collectstatic") 	collectstatic ;;
   "check_sw")       check_sw;;
   "funtests")       funtests;;
+  "mm")       		mm;;
   *) 				show_help
 esac
 
+#http://stackoverflow.com/questions/1338728/delete-commits-from-a-branch-in-git

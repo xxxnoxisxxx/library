@@ -35,6 +35,9 @@
                 </li>
                 {% if user.is_authenticated %}
                 <li>
+                    <a href="{% url 'bookWrapper' %}">Show books</a>
+                </li>
+                <li>
                     <a href="{% url 'logout' %}">Logout</a>
                 </li>
                 <li>
