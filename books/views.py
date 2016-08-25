@@ -13,7 +13,7 @@ def dashboard(request):
 	return render(request,'index.html', {})
 	
 class BookView(View):
-	template_name = 'NAZWA.html'
+	template_name = 'bookWrapper.html'
 
 	def get(self, request, *args, **kwargs):
 		books = Book.objects.all()
