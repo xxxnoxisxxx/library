@@ -15,7 +15,6 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
@@ -27,11 +26,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = (
-    #'bootstrap_admin',
+    # 'bootstrap_admin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,7 +40,7 @@ INSTALLED_APPS = (
     'crispy_forms',
     'books',
     'account',
-    )
+)
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -68,14 +66,13 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                #'django.template.context_processors.request',
+                # 'django.template.context_processors.request',
             ],
         },
     },
 ]
 
 WSGI_APPLICATION = 'library.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
@@ -101,17 +98,15 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
 
-
 # Dodatkowe konfiguracje
 from django.core.urlresolvers import reverse_lazy
 
-#Konfiguracja produkcyjnej bazy danych
+# Konfiguracja produkcyjnej bazy danych
 if DEBUG is False:
     DATABASES = {
         'default': {
@@ -119,11 +114,10 @@ if DEBUG is False:
             'NAME': 'mydb',
             'USER': 'myuser',
             'PASSWORD': 'password',
-            'HOST': 'localhost', 
+            'HOST': 'localhost',
             'PORT': '',
         }
     }
-
 
 # Pliki statyczne
 if DEBUG:
@@ -147,11 +141,17 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
-#BOOTSTRAP_ADMIN_SIDEBAR_MENU = True
-ADMIN_MEDIA_PREFIX = '/static/admin/' 
+# BOOTSTRAP_ADMIN_SIDEBAR_MENU = True
+ADMIN_MEDIA_PREFIX = '/static/admin/'
 
 REST_FRAMEWORK = {
-'DEFAULT_PERMISSION_CLASSES': [
-'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-]
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
+
+from django.contrib.messages import constants as messages
+
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger'
 }

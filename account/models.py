@@ -19,7 +19,7 @@ class Reader(models.Model):
         db_table = 'reader'
 
     def __unicode__(self):
-        return '%s %s' % (reader.last_name, reader.first_name)
+        return '%s %s' % (self.reader.last_name, self.reader.first_name)
 
 
 class LibraryUser(models.Model):

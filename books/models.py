@@ -5,65 +5,67 @@ from django.contrib.auth.models import User
 
 
 class Author(models.Model):
-	"""Class represents Author"""
+    """Class represents Author"""
 
-	name = models.CharField(max_length=35)
-	surname = models.CharField(max_length=35)
-		
-	class Meta:
-		db_table = 'author'
+    name = models.CharField(max_length=35)
+    surname = models.CharField(max_length=35)
 
-	def __unicode__(self):
-		return '%s %s' % (self.name, self.surname)
+    class Meta:
+        db_table = 'author'
+
+    def __unicode__(self):
+        return '%s %s' % (self.name, self.surname)
 
 
 class Loan(models.Model):
-	"""Class represents lean book by reader"""
+    """Class represents lean book by reader"""
 
-	loan_date = models.DateField()
-	return_date = models.DateField()
-	loan_status = models.IntegerField()
-	
-	class Meta:
-		db_table = 'loan'
+    loan_date = models.DateField()
+    return_date = models.DateField()
+    loan_status = models.IntegerField()
+
+    class Meta:
+        db_table = 'loan'
 
 
 class Reservation(models.Model):
-	"""Class represents reservation"""
+    """Class represents reservation"""
 
-	reservation_date = models.DateField()
-	reservation_status = models.DateField()
-	
-	class Meta:
-		db_table = 'reservation'
-	
+    reservation_date = models.DateField()
+    reservation_status = models.DateField()
+
+    class Meta:
+        db_table = 'reservation'
+
+
 class Item(models.Model):
-	"""Class represents book item"""
+    """Class represents book item"""
 
-	loans = models.ForeignKey(Loan, blank=True, on_delete=models.CASCADE)
-	available = models.BooleanField()
-	
-	class Meta:
-		db_table = 'item'
+    loans = models.ForeignKey(Loan, blank=True, on_delete=models.CASCADE)
+    available = models.BooleanField()
+
+    class Meta:
+        db_table = 'item'
+
 
 class Book(models.Model):
-	"""Class represents book"""
+    """Class represents book"""
 
-	authors = models.ManyToManyField(Author, blank=True)
-	items = models.ForeignKey(Item, blank=True, null=True, on_delete=models.CASCADE, )
-	reservation = models.ForeignKey(Reservation, blank=True, null=True, on_delete=models.CASCADE)
+    authors = models.ManyToManyField(Author, blank=True)
+    items = models.ForeignKey(Item, blank=True, null=True, on_delete=models.CASCADE, )
+    reservation = models.ForeignKey(Reservation, blank=True, null=True, on_delete=models.CASCADE)
 
-	publisher = models.CharField(max_length=50)
-	title = models.CharField(max_length=50)
-	isbn = models.CharField(max_length=20)
-	edition = models.IntegerField(blank=True, null=True)
-	edition_date = models.DateField(blank=True, null=True)
-	pages = models.IntegerField()
-	available = models.IntegerField()
-	description = models.TextField()
-	
-	class Meta:
-		db_table = 'book'
+    publisher = models.CharField(max_length=50)
+    title = models.CharField(max_length=50)
+    isbn = models.CharField(max_length=20)
+    edition = models.IntegerField(blank=True, null=True)
+    edition_date = models.DateField(blank=True, null=True)
+    pages = models.IntegerField()
+    available = models.IntegerField()
+    description = models.TextField()
 
-	def __unicode__(self):
-		return self.title	
+    class Meta:
+        db_table = 'book'
+
+    def __unicode__(self):
+        return self.title

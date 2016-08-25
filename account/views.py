@@ -1,12 +1,13 @@
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import FormView, View
-from django.contrib.auth.models import User
-
-from forms import LoginForm, RegisterUserForm
-
+from forms import LoginForm, RegisterUserForm, RegisterReaderForm
+from models import Reader
+from django.db import IntegrityError
 
 # Create your views here.
 
@@ -22,7 +23,8 @@ class LoginPageView(FormView):
 
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated():
-            print request.user
+            print
+            request.user
             return HttpResponseRedirect(self.get_success_url())
         form = self.form_class
         return render(request, self.template_name, {'form': form})
@@ -41,12 +43,13 @@ class LoginPageView(FormView):
 
 class RegisterNewUserView(FormView):
     template_name = 'register_user.html'
-    form_class = RegisterUserForm
+    form_class = {'form': RegisterUserForm, 'form_imp': RegisterReaderForm}
     success_url = reverse_lazy('dashboard')
 
     def get(self, request, *args, **kwargs):
-        form = self.form_class
-        return render(request, self.template_name, {'form': form})
+        form = self.form_class['form']
+        form_imp = self.form_class['form_imp']
+        return render(request, self.template_name, {'form': form, 'form_imp': form_imp})
 
     def post(self, request, *args, **kwargs):
         username = request.POST.get('username')
@@ -55,13 +58,33 @@ class RegisterNewUserView(FormView):
         email = request.POST.get('email')
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
+        id_card = request.POST.get('id_card')
+        mobile = request.POST.get('mobile')
+        #
+
+        # new_user = RegisterUserForm(instance=request.user, data=request.POST)
+        # new_reader = RegisterReaderForm(instance=request.reader, data=request.POST)
+        # if new_reader.is_valid() and new_user.is_valid():
+        #     new_user.save()
+        #     new_reader.save()
         if password == password_confirm:
-            user = User(username=username, password=password, email=email, first_name=first_name,
-                        last_name=last_name)
-            user.save()
+            try:
+                user = User(username=username, password=password, email=email, first_name=first_name,
+                            last_name=last_name)
+                user.save()
+                reader = Reader(reader=user, id_card=id_card, mobile=mobile)
+                reader.save()
+            except IntegrityError:
+                messages.error(request, u"Input data is not valid!")
+                form = self.form_class['form']
+                form_imp = self.form_class['form_imp']
+                return render(request, self.template_name, {'form': form, 'form_imp': form_imp})
             return HttpResponseRedirect(self.get_success_url())
-        form = self.form_class
-        return render(request, self.template_name, {'form': form})
+        else:
+            messages.error(request, u"Passwords aren't match!")
+        form = self.form_class['form']
+        form_imp = self.form_class['form_imp']
+        return render(request, self.template_name, {'form': form, 'form_imp': form_imp})
 
 
 class LogoutPageView(View):
