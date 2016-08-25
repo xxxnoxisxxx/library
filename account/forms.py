@@ -13,18 +13,14 @@ class LoginForm(forms.ModelForm):
 
 
 class RegisterUserForm(forms.ModelForm):
-    password_confirm = forms.CharField(widget=forms.PasswordInput())
 
+    password_confirm = forms.CharField(widget=forms.PasswordInput())
+    
     def __init__(self, *args, **kwargs):
         super(RegisterUserForm, self).__init__(*args, **kwargs)
 
         for key in self.fields:
             self.fields[key].required = True
-
-    def clean_username(self):
-        data = self.cleaned_data['username']
-        raise forms.ValidationError("WAWWWWWWWWWWWWWWWWWWWWWWWWWW")
-        return data
 
     class Meta:
         model = User
@@ -37,6 +33,13 @@ class RegisterUserForm(forms.ModelForm):
             'password': _('Password'),
             'password_confirm': _('Confirm password')
         }
+
+
+    def clean_password_confirm(self):
+        cd = self.cleaned_data
+        if cd['password'] != cd['password_confirm']:
+            raise forms.ValidationError('Passwords aren\'t match!')
+        return cd['password_confirm']
 
 
 class RegisterReaderForm(forms.ModelForm):

@@ -50,7 +50,7 @@ class LoginPageView(FormView):
 class RegisterNewUserView(FormView):
     template_name = 'register_user.html'
     form_class = {'form': RegisterUserForm, 'form_imp': RegisterReaderForm}
-    success_url = reverse_lazy('dashboard')
+    success_url = reverse_lazy('login')
 
     def get(self, request, *args, **kwargs):
         form = self.form_class['form']
@@ -58,14 +58,24 @@ class RegisterNewUserView(FormView):
         return render(request, self.template_name, {'form': form, 'form_imp': form_imp})
 
     def post(self, request, *args, **kwargs):
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        password_confirm = request.POST.get('password_confirm')
-        email = request.POST.get('email')
-        first_name = request.POST.get('first_name')
-        last_name = request.POST.get('last_name')
-        id_card = request.POST.get('id_card')
-        mobile = request.POST.get('mobile')
+
+        #new_form = UserRegistrationForm(request.POST)
+        user_form = RegisterUserForm(request.POST)
+        if user_form.is_valid():
+            new_user = user_form.save(commit=False)
+            new_user.set_password(user_form.cleaned_data['password'])
+            new_user.save()
+            return HttpResponseRedirect(self.get_success_url())
+        return render(request, self.template_name, {'form': user_form})
+        # username = request.POST.get('username')
+        # password = request.POST.get('password')
+        # password_confirm = request.POST.get('password_confirm')
+        # email = request.POST.get('email')
+        # first_name = request.POST.get('first_name')
+        # last_name = request.POST.get('last_name')
+        # id_card = request.POST.get('id_card')
+        # mobile = request.POST.get('mobile')
+
         #
 
         # new_user = RegisterUserForm(instance=request.user, data=request.POST)
@@ -73,24 +83,24 @@ class RegisterNewUserView(FormView):
         # if new_reader.is_valid() and new_user.is_valid():
         #     new_user.save()
         #     new_reader.save()
-        if password == password_confirm:
-            try:
-                user = User(username=username, password=password, email=email, first_name=first_name,
-                            last_name=last_name)
-                user.save()
-                reader = Reader(reader=user, id_card=id_card, mobile=mobile)
-                reader.save()
-            except IntegrityError:
-                messages.error(request, u"Input data is not valid!")
-                form = self.form_class['form']
-                form_imp = self.form_class['form_imp']
-                return render(request, self.template_name, {'form': form, 'form_imp': form_imp})
-            return HttpResponseRedirect(self.get_success_url())
-        else:
-            messages.error(request, u"Passwords aren't match!")
-        form = self.form_class['form']
-        form_imp = self.form_class['form_imp']
-        return render(request, self.template_name, {'form': form, 'form_imp': form_imp})
+        # if password == password_confirm:
+        #     try:
+        #         user = User(username=username, password=password, email=email, first_name=first_name,
+        #                     last_name=last_name)
+        #         user.save()
+        #         reader = Reader(reader=user, id_card=id_card, mobile=mobile)
+        #         reader.save()
+        #     except IntegrityError:
+        #         messages.error(request, u"Input data is not valid!")
+        #         form = self.form_class['form']
+        #         form_imp = self.form_class['form_imp']
+        #         return render(request, self.template_name, {'form': form, 'form_imp': form_imp})
+        #     return HttpResponseRedirect(self.get_success_url())
+        # else:
+        #     messages.error(request, u"Passwords aren't match!")
+        # form = self.form_class['form']
+        # form_imp = self.form_class['form_imp']
+        # return render(request, self.template_name, {'form': form, 'form_imp': form_imp})
 
 
 class LogoutPageView(LoginRequiredMixin, View):
