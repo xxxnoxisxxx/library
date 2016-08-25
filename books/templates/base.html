@@ -16,6 +16,10 @@
     <link href="{% static "css/simple-sidebar.css" %}" rel="stylesheet">
     <link href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel="stylesheet">
 
+    {% block css %}
+    
+    {% endblock %}
+
 </head>
 
 <body>
@@ -51,7 +55,14 @@
 
     <script src="{% static "js/jquery.js" %}"></script>
     <script src="{% static "js/bootstrap.min.js" %}"></script>
-    <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+
+    
+	{% block js %}
+    
+    	{% endblock %}
+
+
+    
 </body>
 
 </html>
