@@ -2,17 +2,21 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.views.generic import View
 from models import Book
+from django.utils.decorators import method_decorator
 # Create your views here.
 
-# from django.contrib.admin.views.decorators import staff_member_required
+class LoginRequiredMixin(object):
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(LoginRequiredMixin, self).dispatch(request, *args, **kwargs)
 
-# @staff_member_required
+class DashboardView(LoginRequiredMixin, View):
+	template_name = 'index.html'
 
-@login_required
-def dashboard(request):
-	return render(request,'index.html', {})
-	
-class BookView(View):
+	def get(self, request, *arg, **kwargs):
+		return rented (request, self.template_name)
+
+class BookView(LoginRequiredMixin, View):
 	template_name = 'bookWrapper.html'
 
 	def get(self, request, *args, **kwargs):

@@ -9,6 +9,7 @@ from forms import LoginForm, RegisterUserForm
 from forms import RegisterReaderForm
 
 
+
 # Create your views here.
 
 class LoginRequiredMixin(object):
@@ -24,8 +25,6 @@ class LoginPageView(FormView):
 
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated():
-            print
-            request.user
             return HttpResponseRedirect(self.get_success_url())
         form = self.form_class
         return render(request, self.template_name, {'form': form})
