@@ -14,7 +14,7 @@ class DashboardView(LoginRequiredMixin, View):
 	template_name = 'index.html'
 
 	def get(self, request, *arg, **kwargs):
-		return rented (request, self.template_name)
+		return render (request, self.template_name)
 
 class BookView(LoginRequiredMixin, View):
 	template_name = 'bookWrapper.html'
