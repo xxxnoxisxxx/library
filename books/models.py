@@ -47,7 +47,7 @@ class Item(models.Model):
 	"""Class represents book item"""
 
 	books = models.ForeignKey(Book, blank=True, null=True, on_delete=models.CASCADE)
-	available = models.BooleanField()
+	available = models.BooleanField(default=True)
 	
 	class Meta:
 		db_table = 'item'

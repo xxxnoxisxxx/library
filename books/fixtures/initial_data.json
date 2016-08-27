@@ -16,6 +16,30 @@
         }
      },
      { 
+        "model": "books.Author", 
+        "pk": 2,
+        "fields": { 
+            "name": "Brad",
+            "surname": "Dayley"
+        }
+     },
+     { 
+        "model": "books.Author", 
+        "pk": 3,
+        "fields": { 
+            "name": "Cay",
+            "surname": "Horstmann"
+        }
+     },
+     { 
+        "model": "books.Author", 
+        "pk": 4,
+        "fields": { 
+            "name": "Gary",
+            "surname": "Cornell"
+        }
+     },
+     { 
         "model": "books.Publisher", 
         "pk": 0,
         "fields": { 
@@ -28,5 +52,208 @@
         "fields": { 
             "name": "O'Reilly"
         }
-     }
+     },
+     { 
+        "model": "books.Publisher", 
+        "pk": 2,
+        "fields": { 
+            "name": "Pearson"
+        }
+     },
+     {
+        "model": "books.book",
+        "pk": 0,
+        "fields": {
+            "publisher": 1,
+            "title": "TDD w praktyce",
+            "isbn": "9788328313774",
+            "edition": 1,
+            "edition_date": "2015-08-27",
+            "pages": 448,
+            "description": "Poznaj techniki TDD w po\u0142\u0105czeniu z tworzeniem aplikacji webowej za pomoc\u0105 Django.",
+            "authors": [
+              0
+            ]
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 1,
+        "fields": {
+            "publisher": 0,
+            "title": "Git",
+            "isbn": "9788324655649",
+            "edition": 1,
+            "edition_date": "2013-04-15",
+            "pages": 328,
+            "description": "Mo\u017cliwo\u015bci programu git i sposoby jego praktycznego zastosowania w r\u00f3\u017cnych projektach przedstawione zosta\u0142y w tej ksi\u0105\u017cce.",
+            "authors": [
+              1
+            ]
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 2,
+        "fields": {
+            "publisher": 2,
+            "title": "Node.js, MongoDB, AngularJS",
+            "isbn": "9788328301115",
+            "edition": 2,
+            "edition_date": "2015-03-11",
+            "pages": 672,
+            "description": "Tworzenie skalowanej aplikacji za pomoca NodeJS!",
+            "authors": [
+              1
+            ]
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 3,
+        "fields": {
+            "publisher": 2,
+            "title": "Java. Podstawy.",
+            "isbn": "9788324677580",
+            "edition": 9,
+            "edition_date": "2013-12-09",
+            "pages": 864,
+            "description": "Podstawy programowania w jezyku Java",
+            "authors": [
+              3, 4
+            ]
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 4,
+        "fields": {
+            "publisher": 2,
+            "title": "Java. Podstawy.",
+            "isbn": "9788328324800",
+            "edition": 10,
+            "edition_date": "2016-09-25",
+            "pages": 872,
+            "description": "Podstawy programowania w jezyku Java",
+            "authors": [
+              3, 4
+            ]
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 5,
+        "fields": {
+            "publisher": 2,
+            "title": "Java. Techniki zaawansowane.",
+            "isbn": "9788324677658",
+            "edition": 9,
+            "edition_date": "2013-03-09",
+            "pages": 922,
+            "description": "Dziewiate wydanie bestsellerowej pozycji Java. Techniki zaawansowane zostalo zaktualizowane i uzupelnione o nowinki z najnowszej wersji języka Java oznaczonej numerem 7. W trakcie lektury dowiesz sie, jak wydajnie korzystac ze strumieni, wyrazen regularnych oraz baz danych.",
+            "authors": [
+              3, 4
+            ]
+        }
+    },
+    {
+        "model": "books.item",
+        "pk": 0,
+        "fields": {
+            "books": 0,
+            "available": true
+        }
+    },
+    {
+        "model": "books.item",
+        "pk": 1,
+        "fields": {
+            "books": 1,
+            "available": false
+        }
+    },
+    {
+        "model": "books.item",
+        "pk": 2,
+        "fields": {
+            "books": 1,
+            "available": false
+        }
+    },
+    {
+        "model": "books.item",
+        "pk": 3,
+        "fields": {
+            "books": 2,
+            "available": true
+        }
+    },
+    {
+        "model": "books.item",
+        "pk": 4,
+        "fields": {
+            "books": 3,
+            "available": true
+        }
+    },
+    {
+        "model": "books.item",
+        "pk": 5,
+        "fields": {
+            "books": 4,
+            "available": true
+        }
+    },
+    {
+        "model": "books.item",
+        "pk": 6,
+        "fields": {
+            "books": 4,
+            "available": true
+        }
+    },  
+    {
+        "model": "books.item",
+        "pk": 7,
+        "fields": {
+            "books": 5,
+            "available": true
+        }
+    },
+    {
+        "model": "books.item",
+        "pk": 8,
+        "fields": {
+            "books": 5,
+            "available": true
+        }
+    },
+    {
+        "model": "books.item",
+        "pk": 9,
+        "fields": {
+            "books": 5,
+            "available": true
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 1,
+        "fields": {
+            "password": "pbkdf2_sha256$24000$KV1yr83C3pP2$GMj8BkwFctm/or2aSL7PGopm+Ke2AIGO7Eu2xQS2L1I=",
+            "last_login": "2016-08-27T13:08:48.295Z",
+            "is_superuser": true,
+            "username": "admin",
+            "first_name": "",
+            "last_name": "",
+            "email": "admin@pite.pl",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2016-08-27T13:07:32.096Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    }
+    
+
 ]

@@ -81,7 +81,6 @@ loaddata(){
     echo ""
     echo "Select: [ init / dump ]"
     read type
-    echo $type
     if [ "$type" == "init" ]; then
             python manage.py loaddata $DB_INITIAL;
     elif [ "$type" == "dump" ]; then
