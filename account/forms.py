@@ -41,11 +41,6 @@ class RegisterUserForm(forms.ModelForm):
 
 
 class RegisterReaderForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(RegisterReaderForm, self).__init__(*args, **kwargs)
-
-        self.fields['mobile'].required = True
-
     class Meta:
         model = Reader
         fields = ('id_card', 'mobile')
