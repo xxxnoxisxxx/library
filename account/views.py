@@ -7,7 +7,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import FormView, View
 from forms import LoginForm, RegisterUserForm
 from forms import RegisterReaderForm
-
+from django.contrib import messages
 
 
 # Create your views here.
@@ -32,13 +32,13 @@ class LoginPageView(FormView):
     def post(self, request, *args, **kwargs):
         user_form = LoginForm(request.POST)
         if user_form.is_valid():
-            user = authenticate(username=username, password=password)
+            user = authenticate(username=user_form.cleaned_data['username'], password=user_form.cleaned_data['password'])
             if user is not None:
                 if user.is_active:
                     login(request, user)
                     return HttpResponseRedirect(self.get_success_url())
             else:
-                print 'tutaj bedzie wiadomosc ze nie wyswietlilo'
+                messages.error(request, 'User not found. Please enter correct parameters.')
         return render(request, self.template_name, {'form': user_form})
 
 

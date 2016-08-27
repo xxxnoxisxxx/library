@@ -4,17 +4,9 @@ from django.utils.translation import ugettext_lazy as _
 from models import Reader
 
 
-class LoginForm(forms.ModelForm):
-
-    def __init__(self, *args, **kwargs):
-        super(LoginForm, self).__init__(*args, **kwargs)
-        self.fields['username'].help_text = None
-
+class LoginForm(forms.Form):
+    username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput())
-
-    class Meta:
-        model = User
-        fields = ('username', 'password')
 
 
 class RegisterUserForm(forms.ModelForm):
