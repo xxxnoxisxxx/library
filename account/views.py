@@ -30,15 +30,16 @@ class LoginPageView(FormView):
         return render(request, self.template_name, {'form': form})
 
     def post(self, request, *args, **kwargs):
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-                return HttpResponseRedirect(self.get_success_url())
-        form = self.form_class
-        return render(request, self.template_name, {'form': form})
+        user_form = LoginForm(request.POST)
+        if user_form.is_valid():
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                    return HttpResponseRedirect(self.get_success_url())
+            else:
+                print 'tutaj bedzie wiadomosc ze nie wyswietlilo'
+        return render(request, self.template_name, {'form': user_form})
 
 
 class RegisterNewUserView(FormView):
