@@ -10,9 +10,10 @@
 <div class="col-md-6 col-md-offset-3">
 <form action="" method="post">{% csrf_token %}
     {{ form | crispy }}
+        <p class="text-muted">(*) Mandatory </p>
     <input type="submit" value="Login" class="btn btn-primary"/>
-</form>
     <a href="{% url 'register' %}" class="top-menu">You don't have an account ?</a>
+</form>
 </div>
 </div>
 {% endblock %}

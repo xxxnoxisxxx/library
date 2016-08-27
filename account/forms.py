@@ -5,6 +5,11 @@ from models import Reader
 
 
 class LoginForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(LoginForm, self).__init__(*args, **kwargs)
+        self.fields['username'].help_text = None
+
     password = forms.CharField(widget=forms.PasswordInput())
 
     class Meta:
