@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Active user list{% endblock %}
+{% block content %}
+    <div class="container">
+        <h1>Books history
+        </h1>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Developers</h3>
+                    </div>
+                    <table class="table table-hover" id="dev-table">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Authors</th>
+                            <th>Loan Date</th>
+                            <th>Return Date</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for loan in user.loans %}
+                            {% for item in loan.items %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ item.authors }}</td>
+                                    <td>{{ loan.loan_date }}</td>
+                                    <td>{{ loan.return_date }}</td>
+                                    <td>{{ loan.loan_status }}</td>
+                                </tr>
+                            {% endfor %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Active user list{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12"><h1>Active user list</h1></div>
+
+            {% for user in users %}
+
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2">
+                    <div class="thumbnail thumbnail-beneficiary">
+                        <div class="caption">
+                            <h4>{{ user.get_full_name }}
+                            </h4>
+                            <p>Username: {{ user.get_username }}</p>
+                            <p class=text-muted">
+                                <small>First name: {{ user.first_name }}</small>
+                                <br>
+                                <small>Last name: {{ user.last_name }}</small>
+                                <br>
+                                <small>Email: {{ user.email }}</small>
+                                <br>
+                                <small>Phone number: {{ user.reader.mobile }}</small>
+                                <br>
+                                <small>ID Card: {{ user.reader.id_card }}</small>
+                                <br>
+                            </p>
+                            <a href={{ user.get_absolute_url }}> <button type=" button" class="btn btn-primary btn-sm
+                            btn-beneficiary"><span
+                                class="glyphicon glyphicon-book" aria-hidden="true"> </span> Show details
+                            </button></a>
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+
+        </div>
+    </div>
+{% endblock %}
