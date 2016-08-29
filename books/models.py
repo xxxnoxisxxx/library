@@ -66,7 +66,7 @@ class Reservation(models.Model):
 		db_table = 'reservation'
 
 	def __unicode__(self):
-		return str(self.id) + " " + self.books.title 
+		return "%s %s" %(self.id, self.books.title) 
 	
 class Loan(models.Model):
 	"""Class represents lean book by reader"""
