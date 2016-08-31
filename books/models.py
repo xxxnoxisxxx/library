@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 
 
 class Author(models.Model):
@@ -38,6 +39,9 @@ class Book(models.Model):
     edition_date = models.DateField(blank=True, null=True)
     pages = models.IntegerField()
     description = models.TextField()
+
+    def get_absolute_url(self):
+        return reverse('Book:book_update', args=[self.id])
 
     class Meta:
         db_table = 'book'
