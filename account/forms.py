@@ -1,12 +1,38 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
-from models import Reader
+from account.models import Reader
+from books.models import Book, Author, Publisher
 
 
 class LoginForm(forms.Form):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput())
+
+
+class AddBookForm(forms.ModelForm):
+    class Meta:
+        model = Book
+        fields = ('title', 'isbn', 'edition', 'edition_date', 'pages', 'description')
+
+
+class AddAuthorForm(forms.ModelForm):
+    class Meta:
+        model = Author
+        fields = ('name', 'surname')
+        labels = {
+            'name': _('Author(s) name'),
+            'surname': _('Author(s) surname')
+        }
+
+
+class AddPublisherForm(forms.ModelForm):
+    class Meta:
+        model = Publisher
+        fields = ('name',)
+        labels = {
+            'name': _('Publisher name')
+        }
 
 
 class RegisterUserForm(forms.ModelForm):
