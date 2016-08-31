@@ -2,9 +2,11 @@
 {% load static %}
 {% block title %}Active user list{% endblock %}
 {% block content %}
-    <div class="container">
+ 
+<div class="page-header">
+    <h2>Library <small>Active user list</small><h2>
+</div>
         <div class="row">
-            <div class="col-lg-12"><h1>Active user list</h1></div>
 
             {% for user in users %}
 
@@ -37,5 +39,4 @@
             {% endfor %}
 
         </div>
-    </div>
 {% endblock %}
