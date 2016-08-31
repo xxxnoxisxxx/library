@@ -24,7 +24,6 @@ class BookView(LoginRequiredMixin, View):
 		return render(request, self.template_name, {'books':books})
 		
 		
-		
 class LoanView(LoginRequiredMixin, View):
 	template_name = 'loanWrapper.html'
 
@@ -34,4 +33,9 @@ class LoanView(LoginRequiredMixin, View):
 		return render(request, self.template_name, {'books':books})
 		
 		
-		
+def Loan(request):
+	if request.is_ajax():
+		print "ASDADADADASD"
+		request_data = request.POST
+		return HttpResponse("OK")
+
