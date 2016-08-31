@@ -124,7 +124,7 @@ class UserListPageView(LoginRequiredMixin, ListView):
 
     @method_decorator(staff_member_required)
     def dispatch(self, request, *args, **kwargs):
-        return super(UserDetailsPageView, self).dispatch(request, *args, **kwargs)
+        return super(UserListPageView, self).dispatch(request, *args, **kwargs)
 
 class UserDetailsPageView(LoginRequiredMixin, DetailView):
     model = User
