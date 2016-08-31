@@ -10,6 +10,7 @@ from forms import LoginForm, RegisterUserForm
 from forms import RegisterReaderForm
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.contrib.admin.views.decorators import staff_member_required
 
 
 # Create your views here.
@@ -82,42 +83,23 @@ class LogoutPageView(LoginRequiredMixin, View):
         else:
             return HttpResponseRedirect(reverse('dashboard'))
 
-
-'''
-Alternative implementation for user_list
-TO-DO
-ONLY FOR STAFF
-'''
 class UserListPageView(LoginRequiredMixin, ListView):
     context_object_name = 'users'
-    queryset = User.objects.filter(is_active=True)
+    queryset = User.objects.filter(is_active=True).exclude(username='admin')
     template_name = 'account/user/list.html'
 
-# TO REMOVE
-# def user_list(request):
-#     users = User.objects.filter(is_active=True)
-#     return render(request, 'account/user/list.html', {'section': 'people', 'users': users})
+    @method_decorator(staff_member_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(UserDetailsPageView, self).dispatch(request, *args, **kwargs)
 
-
-'''
-Alternative implementation for user_details
-TO-DO
-ONLY FOR STAFF
-'''
 class UserDetailsPageView(LoginRequiredMixin, DetailView):
     model = User
     template_name = 'account/user/detail.html'
     context_object_name = 'user'
 
-    '''
-    self.kwargs['username'] <---- url(r'^user/(?P<username>[-\w]+)/$', UserDetailsPageView.as_view(), name='user_detail')
-    '''
     def get_object(self, *arg, **kwargs):
         return get_object_or_404(User, username=self.kwargs['username'])
 
-'''
-TO REMOVE
-'''
-# def user_details(request, username):
-#     user = get_object_or_404(User, username=username, is_active=True)
-#     return render(request, 'account/user/detail.html', {'section': 'people', 'user': user})
+    @method_decorator(staff_member_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(UserDetailsPageView, self).dispatch(request, *args, **kwargs)
