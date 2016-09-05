@@ -7,10 +7,10 @@ from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 
 from django.views.generic import FormView, View, ListView, DetailView
-from forms import LoginForm, RegisterUserForm
-from forms import RegisterReaderForm
+from account.forms import LoginForm, RegisterUserForm
+from account.forms import RegisterReaderForm
 from django.views.generic import FormView, View, ListView, DetailView
-from account.forms import LoginForm, RegisterUserForm, AddBookForm, AddAuthorForm, AddPublisherForm
+from account.forms import LoginForm, RegisterUserForm
 from account.forms import RegisterReaderForm
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -51,36 +51,6 @@ class LoginPageView(FormView):
             else:
                 messages.error(request, 'User not found. Please enter correct parameters.')
         return render(request, self.template_name, {'form': user_form})
-
-
-class AddNewBookView(FormView):
-    template_name = 'add_book.html'
-    form_class = {'add_book': AddBookForm, 'add_author': AddAuthorForm, 'add_publisher': AddPublisherForm}
-    success_url = reverse_lazy('show_books')
-
-    def get(self, request, *args, **kwargs):
-        add_book_form = self.form_class['add_book']
-        add_author_form = self.form_class['add_author']
-        add_publisher_form = self.form_class['add_publisher']
-        return render(request, self.template_name,
-                      {'add_book': add_book_form, 'add_author': add_author_form, 'add_publisher': add_publisher_form})
-
-    def post(self, request, *args, **kwargs):
-        author_form = AddAuthorForm(request.POST)
-        publisher_form = AddPublisherForm(request.POST)
-        book_form = AddBookForm(request.POST)
-        if author_form.is_valid() and publisher_form.is_valid() and book_form.is_valid():
-            new_author = author_form.save(commit=False)
-            new_author.save()
-            new_publisher = publisher_form.save(commit=False)
-            new_publisher.save()
-            new_book = book_form.save(commit=False)
-            new_book.author = new_author
-            new_book.publisher = new_publisher
-            new_book.save()
-            return HttpResponseRedirect(self.get_success_url())
-        return render(request, self.template_name,
-                      {'add_book': book_form, 'add_author': author_form, 'add_publisher': publisher_form})
 
 
 class RegisterNewUserView(FormView):
