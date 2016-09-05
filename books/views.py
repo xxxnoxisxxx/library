@@ -32,10 +32,13 @@ class LoanView(LoginRequiredMixin, View):
 		books = Book.objects.all().filter(title__in=items)
 		return render(request, self.template_name, {'books':books})
 		
-		
+
 def Loan(request):
-	if request.is_ajax():
-		print "ASDADADADASD"
-		request_data = request.POST
-		return HttpResponse("OK")
+	if request.POST:
+		if request.is_ajax():
+			print "ASDADADADASD"
+			request_data = request.POST
+			return HttpResponse("OK")
+
+			
 

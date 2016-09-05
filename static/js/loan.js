@@ -25,8 +25,8 @@ function loan() {
 console.log("ASDASD");
 
 $(".modal-body").eq(0).html("Done!");
-var checkboxes = document.getElementsByName("checkbox");
 
+var checkboxes = document.getElementsByName("checkbox");
 
 for (var i=0; i<checkboxes.length; i++) {
 
@@ -42,19 +42,3 @@ for (var i=0; i<checkboxes.length; i++) {
 }
 
 
-$(document).ready(function() {
-    $('loan').click(function() {
-    $.ajax({
-        method: 'POST',
-        url: '../../books/views.py',
-        data: {'yourJavaScriptArrayKey': selected},
-        success: function (data) {
-             //this gets called when server returns an OK response
-             alert("it worked!");
-        },
-        error: function (data) {
-             alert("it didnt work");
-        }
-       }); 
-    });
-});
