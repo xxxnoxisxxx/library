@@ -5,16 +5,29 @@ from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.generic import FormView, View
 from books.models import Book, Item
-
+from django.contrib.admin.views.decorators import staff_member_required
 from books.forms import AddBookForm, AddAuthorForm, AddPublisherForm
 
 
 # Create your views here.
 
 class LoginRequiredMixin(object):
-    @method_decorator(login_required)
-    def dispatch(self, request, *args, **kwargs):
-        return super(LoginRequiredMixin, self).dispatch(request, *args, **kwargs)
+	@method_decorator(login_required)
+	def dispatch(self, request, *args, **kwargs):
+		return super(LoginRequiredMixin, self).dispatch(request, *args, **kwargs)
+
+class LoginAndStaffRequiredMixin(object):
+	@method_decorator(login_required)
+	@method_decorator(staff_member_required)
+	def dispatch(self, request, *args, **kwargs):
+		return super(LoginAndStaffRequiredMixin, self).dispatch(request, *args, **kwargs)
+
+
+#ONLY FOR STAFF
+class StaffRequiredMixin(object):
+	@method_decorator(staff_member_required)
+	def dispatch(self, request, *args, **kwargs):
+		return super(StaffRequiredMixin, self).dispatch(request, *args, **kwargs)
 
 
 class DashboardView(LoginRequiredMixin, View):
@@ -32,7 +45,8 @@ class BookView(LoginRequiredMixin, View):
         return render(request, self.template_name, {'books': books})
 
 
-class AddNewBookView(FormView):
+#ONLY FOR STAFF
+class AddNewBookView(LoginAndStaffRequiredMixin, FormView):
     template_name = 'add_book.html'
     form_class = {'add_book': AddBookForm, 'add_author': AddAuthorForm, 'add_publisher': AddPublisherForm}
     success_url = reverse_lazy('show_books')
