@@ -19,42 +19,46 @@ $(document).ready(function() {
     
 } ) ;
 
-
 var selected = [];
+
 function loan() {
-console.log("ASDASD");
 
-$(".modal-body").eq(0).html("Done!");
-var checkboxes = document.getElementsByName("checkbox");
+    	var checkboxes = document.getElementsByName("checkbox");
+    
+    for (var i=0; i<checkboxes.length; i++) {
 
-
-for (var i=0; i<checkboxes.length; i++) {
-
-    if (checkboxes[i].checked) {
-        selected.push(checkboxes[i]);
-    }
-}
+  	  if (checkboxes[i].checked) {
+  	      selected.push(checkboxes[i]);
+  	  }
+	}
     
     for(var i=0; i<selected.length; ++i) {
     	console.log(selected[i].value);
     }
+    
+   if(selected.length > 0){
+        $(".modal-body").eq(0).html("Done!");
 
-}
-
-
-$(document).ready(function() {
-    $('loan').click(function() {
+	console.log("ASDADASD");
+    
     $.ajax({
         method: 'POST',
-        url: '../../books/views.py',
-        data: {'yourJavaScriptArrayKey': selected},
+        url: '../loan/',
+        data: {'selected': selected},
         success: function (data) {
-             //this gets called when server returns an OK response
              alert("it worked!");
         },
         error: function (data) {
              alert("it didnt work");
         }
        }); 
-    });
-});
+       
+       }
+       
+       else
+           $(".modal-body").eq(0).html("Select something!");
+       
+}
+
+
+
