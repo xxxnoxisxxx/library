@@ -253,7 +253,34 @@
             "groups": [],
             "user_permissions": []
         }
+    },
+    {
+        "model": "auth.user",
+        "pk": 2,
+        "fields": {
+          "password": "pbkdf2_sha256$24000$Wrp4oL7fY6x0$z7Vwty+EpOfjVdhyTLGNjN0KKu+OiCLI2+Opdwd/PDI=",
+          "last_login": "2016-09-05T20:02:35.204Z",
+          "is_superuser": false,
+          "username": "test",
+          "first_name": "Janusz",
+          "last_name": "Grazia",
+          "email": "mail@pite.pl",
+          "is_staff": false,
+          "is_active": true,
+          "date_joined": "2016-09-05T19:56:21.802Z",
+          "groups": [],
+          "user_permissions": []
+        }
+    },
+    {
+      "model": "account.reader",
+      "pk": 1,
+      "fields": {
+        "reader": 2,
+        "loans": null,
+        "reservation": null,
+        "id_card": "1",
+        "mobile": "514514514"
+      }
     }
-    
-
 ]
