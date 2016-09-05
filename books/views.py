@@ -1,13 +1,13 @@
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse_lazy
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.generic import FormView, View
 from books.models import Book, Item
-
+import json
 from books.forms import AddBookForm, AddAuthorForm, AddPublisherForm
-
+from django.contrib import messages
 
 # Create your views here.
 
@@ -71,14 +71,23 @@ class LoanView(LoginRequiredMixin, View):
         return render(request, self.template_name, {'books': books})
 
 
+from django.views.decorators.csrf import csrf_exempt
+
+@method_decorator(csrf_exempt, name='dispatch')
 class Loan(LoginRequiredMixin, View):
+    success_url = reverse_lazy('loan_book')
     
     def post(self, request, *args, **kwargs):
-       # if request.is_ajax():
-         #   print "ASDADADADASD"
-          #  request_data = request.POST
-          print "ASDASDASD"
-          return HttpResponse("OK")
+	  loan = request.body.decode('utf-8')
+	  loan = json.loads(loan)['selected']
+	  for bookid in loan:
+	  	item = Item.objects.filter(books__id = bookid, available = True)[:1].get()
+	 	print item.available
+	 	item.available = False
+	 	item.save()
+	  	print item
+	  messages.success(request, 'Enjoy reading')
+          return HttpResponseRedirect(self.get_success_url())
           
           
           

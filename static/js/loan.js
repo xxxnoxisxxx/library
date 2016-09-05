@@ -1,5 +1,7 @@
+var table = null;
+
 $(document).ready(function() {
-    var table = $('#loan-wrapper').DataTable( {
+    table = $('#loan-wrapper').DataTable( {
         "columnDefs": [
             {
                 "targets": [ 7 ],
@@ -19,37 +21,29 @@ $(document).ready(function() {
     
 } ) ;
 
-var selected = [];
+
 
 function loan() {
-
-    	var checkboxes = document.getElementsByName("checkbox");
+var selected = [];
+    	
+    	       $("input:checked", $('#loan-wrapper').dataTable().fnGetNodes()).each(function(){
+ 	selected.push($(this).val());
+});
     
-    for (var i=0; i<checkboxes.length; i++) {
+console.log(selected);
 
-  	  if (checkboxes[i].checked) {
-  	      selected.push(checkboxes[i]);
-  	  }
-	}
-    
-    for(var i=0; i<selected.length; ++i) {
-    	console.log(selected[i].value);
-    }
     
    if(selected.length > 0){
-        $(".modal-body").eq(0).html("Done!");
 
-	console.log("ASDADASD");
-    
     $.ajax({
         method: 'POST',
         url: '../loan/',
-        data: {'selected': selected},
+        datatype:'json',
+        data:JSON.stringify({'selected': selected}),
         success: function (data) {
-             alert("it worked!");
         },
         error: function (data) {
-             alert("it didnt work");
+        	alert('Oops...')
         }
        }); 
        

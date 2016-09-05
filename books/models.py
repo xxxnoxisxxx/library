@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-
+from datetime import datetime, timedelta
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -48,7 +48,7 @@ class Book(models.Model):
 
 class Item(models.Model):
     """Class represents book item"""
-
+    
     books = models.ForeignKey(Book, blank=True, null=True, on_delete=models.CASCADE)
     available = models.BooleanField(default=True)
 
@@ -77,8 +77,8 @@ class Loan(models.Model):
     """Class represents lean book by reader"""
     items = models.ForeignKey(Item, blank=True, null=True, on_delete=models.CASCADE)
 
-    loan_date = models.DateField()
-    return_date = models.DateField()
+    loan_date = models.DateTimeField(datetime.now())
+    return_date = models.DateTimeField(datetime.now()+timedelta(days=7))
     loan_status = models.IntegerField()
 
     class Meta:
