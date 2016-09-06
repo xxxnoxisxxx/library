@@ -106,19 +106,20 @@ class AddNewBookView(LoginAndStaffRequiredMixin, FormView):
         return render(request, self.template_name,
                       {'add_book': book_form, 'add_author': author_form, 'add_publisher': publisher_form})
 
-    class LoanView(LoginRequiredMixin, View):
-        template_name = 'loanWrapper.html'
 
-        def get(self, request, *args, **kwargs):
-            items = Item.objects.all().filter(available=True).values_list('books__title', flat=True).distinct()
-            books = Book.objects.all().filter(title__in=items)
-            return render(request, self.template_name, {'books': books})
+class LoanView(LoginRequiredMixin, View):
+    template_name = 'loanWrapper.html'
 
-    from django.views.decorators.csrf import csrf_exempt
-
-    @method_decorator(csrf_exempt, name='dispatch')
+    def get(self, request, *args, **kwargs):
+        items = Item.objects.all().filter(available=True).values_list('books__title', flat=True).distinct()
+        books = Book.objects.all().filter(title__in=items)
+        return render(request, self.template_name, {'books': books})
 
 
+from django.views.decorators.csrf import csrf_exempt
+
+
+@method_decorator(csrf_exempt, name='dispatch')
 class Loan(LoginRequiredMixin, View):
     success_url = reverse_lazy('loan_book')
 
