@@ -1,6 +1,8 @@
 from django.conf.urls import url
 import views
+
 from books.views import AddNewBookView, BookListView, BookUpdate
+
 
 urlpatterns = [
     url(r'^$', views.DashboardView.as_view(), name='dashboard'),
@@ -9,5 +11,7 @@ urlpatterns = [
     url(r'^add_book', AddNewBookView.as_view(), name='add_book'),
     url(r'^edit_book/', BookListView.as_view(), name='edit_book_list'),
     url(r'^edit_book/(?P<id>\d+)/$', BookUpdate.as_view(), name='book_update'),
+    url(r'^loan/', views.Loan.as_view(), name='loan'),
+
 ]
 

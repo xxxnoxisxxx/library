@@ -1,5 +1,7 @@
+var table = null;
+
 $(document).ready(function() {
-    var table = $('#loan-wrapper').DataTable( {
+    table = $('#loan-wrapper').DataTable( {
         "columnDefs": [
             {
                 "targets": [ 7 ],
@@ -20,41 +22,37 @@ $(document).ready(function() {
 } ) ;
 
 
-var selected = [];
+
 function loan() {
-console.log("ASDASD");
-
-$(".modal-body").eq(0).html("Done!");
-var checkboxes = document.getElementsByName("checkbox");
-
-
-for (var i=0; i<checkboxes.length; i++) {
-
-    if (checkboxes[i].checked) {
-        selected.push(checkboxes[i]);
-    }
-}
+var selected = [];
+    	
+    	       $("input:checked", $('#loan-wrapper').dataTable().fnGetNodes()).each(function(){
+ 	selected.push($(this).val());
+});
     
-    for(var i=0; i<selected.length; ++i) {
-    	console.log(selected[i].value);
-    }
+console.log(selected);
 
-}
+    
+   if(selected.length > 0){
 
-
-$(document).ready(function() {
-    $('loan').click(function() {
     $.ajax({
         method: 'POST',
-        url: '../../books/views.py',
-        data: {'yourJavaScriptArrayKey': selected},
+        url: '../loan/',
+        datatype:'json',
+        data:JSON.stringify({'selected': selected}),
         success: function (data) {
-             //this gets called when server returns an OK response
-             alert("it worked!");
         },
         error: function (data) {
-             alert("it didnt work");
+        	alert('Oops...')
         }
        }); 
-    });
-});
+       
+       }
+       
+       else
+           $(".modal-body").eq(0).html("Select something!");
+       
+}
+
+
+
