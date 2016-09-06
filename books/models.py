@@ -89,4 +89,5 @@ class Loan(models.Model):
         db_table = 'loan'
 
     def __unicode__(self):
-        return self.items.books.name + str(self.loan_date) + str(self.return_date)
+        return "%s %s" % (self.items.books.name, self.loan_date, self.return_date)
+
