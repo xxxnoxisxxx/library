@@ -41,7 +41,7 @@ class Book(models.Model):
     description = models.TextField()
 
     def get_absolute_url(self):
-        return reverse('Book:book_update', args=[self.id])
+        return reverse('book_update', args=[self.id])
 
     class Meta:
         db_table = 'book'
