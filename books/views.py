@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
-from django.views.generic import FormView, View, ListView, DetailView
+from django.views.generic import FormView, View, ListView, DetailView, UpdateView, CreateView
 from django.views.decorators.csrf import csrf_exempt
 from books.forms import AddBookForm, AddAuthorForm, AddPublisherForm
 from books.models import Book, Item
@@ -46,8 +46,10 @@ class BookView(LoginRequiredMixin, View):
 
 
 class BookUpdate(LoginAndStaffRequiredMixin,DetailView):
+
     model = Book
     template_name = 'book/detail.html'
+    fields = ('authors','publisher','title', 'isbn', 'edition', 'edition_date', 'pages', 'description')
     context_object_name = 'BOOK'
 
     def get_object(self, *arg, **kwargs):
@@ -58,6 +60,9 @@ class BookListView(LoginAndStaffRequiredMixin, ListView):
     context_object_name = 'books'
     queryset = Book.objects.all()
     template_name = 'book/list.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        return super(BookListView, self).dispatch(request, *args, **kwargs)
 
 
 class AddNewBookView(LoginAndStaffRequiredMixin, FormView):
