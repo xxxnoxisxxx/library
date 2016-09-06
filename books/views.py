@@ -8,33 +8,26 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
-from django.views.generic import FormView, View
-from django.views.generic import ListView, DetailView, UpdateView, CreateView
-
+from django.views.generic import FormView, View, ListView, DetailView, UpdateView, CreateView
+from django.views.decorators.csrf import csrf_exempt
 from books.forms import AddBookForm, AddAuthorForm, AddPublisherForm
 from books.models import Book, Item
 
 
-# Create your views here.
-
+# LOGIN ACCESS REQUIRED
 class LoginRequiredMixin(object):
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         return super(LoginRequiredMixin, self).dispatch(request, *args, **kwargs)
 
-
+# LOGIN ACCESS REQUIRED
+# ONLY FOR STAFF
 class LoginAndStaffRequiredMixin(object):
     @method_decorator(login_required)
     @method_decorator(staff_member_required)
     def dispatch(self, request, *args, **kwargs):
         return super(LoginAndStaffRequiredMixin, self).dispatch(request, *args, **kwargs)
 
-
-# ONLY FOR STAFF
-class StaffRequiredMixin(object):
-    @method_decorator(staff_member_required)
-    def dispatch(self, request, *args, **kwargs):
-        return super(StaffRequiredMixin, self).dispatch(request, *args, **kwargs)
 
 
 class DashboardView(LoginRequiredMixin, View):
@@ -52,7 +45,8 @@ class BookView(LoginRequiredMixin, View):
         return render(request, self.template_name, {'books': books})
 
 
-class BookUpdate(UpdateView):
+class BookUpdate(LoginAndStaffRequiredMixin,DetailView):
+
     model = Book
     template_name = 'book/detail.html'
     fields = ('authors','publisher','title', 'isbn', 'edition', 'edition_date', 'pages', 'description')
@@ -61,11 +55,8 @@ class BookUpdate(UpdateView):
     def get_object(self, *arg, **kwargs):
         return get_object_or_404(Book, id=self.kwargs['id'])
 
-    def dispatch(self, request, *args, **kwargs):
-        return super(BookUpdate, self).dispatch(request, *args, **kwargs)
 
-
-class BookListView(ListView):
+class BookListView(LoginAndStaffRequiredMixin, ListView):
     context_object_name = 'books'
     queryset = Book.objects.all()
     template_name = 'book/list.html'
@@ -74,7 +65,7 @@ class BookListView(ListView):
         return super(BookListView, self).dispatch(request, *args, **kwargs)
 
 
-class AddNewBookView(LoginAndStaffRequiredMixin, CreateView):
+class AddNewBookView(LoginAndStaffRequiredMixin, FormView):
     template_name = 'add_book.html'
     form_class = {'add_book': AddBookForm, 'add_author': AddAuthorForm, 'add_publisher': AddPublisherForm}
     success_url = reverse_lazy('show_books')
@@ -111,9 +102,6 @@ class LoanView(LoginRequiredMixin, View):
         items = Item.objects.all().filter(available=True).values_list('books__title', flat=True).distinct()
         books = Book.objects.all().filter(title__in=items)
         return render(request, self.template_name, {'books': books})
-
-
-from django.views.decorators.csrf import csrf_exempt
 
 
 @method_decorator(csrf_exempt, name='dispatch')
