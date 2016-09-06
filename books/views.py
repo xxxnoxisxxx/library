@@ -16,6 +16,7 @@ from django.contrib import messages
 
 # Create your views here.
 
+
 class LoginRequiredMixin(object):
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
