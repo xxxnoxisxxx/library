@@ -50,6 +50,7 @@
 	<tr>
 		<th></th>
 		<th>Publisher</th>
+		<th>Author</th>
 		<th>Title</th>
 		<th>ISBN</th>
 		<th>Edition</th>
@@ -64,6 +65,11 @@
 <tr>
 	<td><input type="checkbox" name="checkbox" value="{{BOOK.id}}"></td>
 	<td>{{BOOK.publisher}}</td>
+	<td>
+                        	{% for author in BOOK.authors.all %}
+                        		{{ author }}
+                        	{% endfor %}
+        </td>
 	<td>{{BOOK.title}}</td>
 	<td>{{BOOK.isbn}}</td>
 	<td>{{BOOK.edition}}</td>

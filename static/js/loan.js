@@ -4,7 +4,7 @@ $(document).ready(function() {
     table = $('#loan-wrapper').DataTable( {
         "columnDefs": [
             {
-                "targets": [ 7 ],
+                "targets": [ 8 ],
                 "visible": false,
             }
         ]
@@ -12,7 +12,7 @@ $(document).ready(function() {
     $('#loan-wrapper tbody').on( 'click', 'button', function () {
         var data = table.row( $(this).parents('tr') ).data();
         
-       $(".modal-body").eq(0).html("<p>" + data[7] + "</p>");
+       $(".modal-body").eq(0).html("<p>" + data[8] + "</p>");
        $(".modal-title").eq(0).html(data[1]);
 
     } );

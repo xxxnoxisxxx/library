@@ -37,6 +37,7 @@
                 <thead>
                 <tr>
                     <th>Publisher</th>
+                    <th>Author</th>
                     <th>Title</th>
                     <th>ISBN</th>
                     <th>Edition</th>
@@ -52,6 +53,11 @@
                 {% for BOOK in books %}
                     <tr>
                         <td>{{ BOOK.publisher }}</td>
+                        <td>
+                        	{% for author in BOOK.authors.all %}
+                        		{{ author }}
+                        	{% endfor %}
+                        </td>
                         <td>{{ BOOK.title }}</td>
                         <td>{{ BOOK.isbn }}</td>
                         <td>{{ BOOK.edition }}</td>
