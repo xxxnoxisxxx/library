@@ -1,17 +1,18 @@
+import json
+
+from django.contrib import messages
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse_lazy
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
-from django.views.generic import FormView, View, ListView, DetailView
-from django.contrib.admin.views.decorators import staff_member_required
+from django.shortcuts import render
+from django.utils.decorators import method_decorator
+from django.views.generic import FormView, View
+from django.views.generic import ListView, DetailView
 
 from books.forms import AddBookForm, AddAuthorForm, AddPublisherForm
 from books.models import Book, Item
-
-from django.http import HttpResponseRedirect, HttpResponse
-from django.shortcuts import render
-from django.utils.decorators import method_decorator
-import json
-from django.contrib import messages
 
 
 # Create your views here.
@@ -20,6 +21,20 @@ class LoginRequiredMixin(object):
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         return super(LoginRequiredMixin, self).dispatch(request, *args, **kwargs)
+
+
+class LoginAndStaffRequiredMixin(object):
+    @method_decorator(login_required)
+    @method_decorator(staff_member_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(LoginAndStaffRequiredMixin, self).dispatch(request, *args, **kwargs)
+
+
+# ONLY FOR STAFF
+class StaffRequiredMixin(object):
+    @method_decorator(staff_member_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(StaffRequiredMixin, self).dispatch(request, *args, **kwargs)
 
 
 class DashboardView(LoginRequiredMixin, View):
@@ -58,7 +73,11 @@ class BookListView(ListView):
         return super(BookListView, self).dispatch(request, *args, **kwargs)
 
 
-class AddNewBookView(FormView):
+
+        # ONLY FOR STAFF
+
+
+class AddNewBookView(LoginAndStaffRequiredMixin, FormView):
     template_name = 'add_book.html'
     form_class = {'add_book': AddBookForm, 'add_author': AddAuthorForm, 'add_publisher': AddPublisherForm}
     success_url = reverse_lazy('show_books')
@@ -87,20 +106,19 @@ class AddNewBookView(FormView):
         return render(request, self.template_name,
                       {'add_book': book_form, 'add_author': author_form, 'add_publisher': publisher_form})
 
+    class LoanView(LoginRequiredMixin, View):
+        template_name = 'loanWrapper.html'
 
-class LoanView(LoginRequiredMixin, View):
-    template_name = 'loanWrapper.html'
+        def get(self, request, *args, **kwargs):
+            items = Item.objects.all().filter(available=True).values_list('books__title', flat=True).distinct()
+            books = Book.objects.all().filter(title__in=items)
+            return render(request, self.template_name, {'books': books})
 
-    def get(self, request, *args, **kwargs):
-        items = Item.objects.all().filter(available=True).values_list('books__title', flat=True).distinct()
-        books = Book.objects.all().filter(title__in=items)
-        return render(request, self.template_name, {'books': books})
+    from django.views.decorators.csrf import csrf_exempt
 
-
-from django.views.decorators.csrf import csrf_exempt
+    @method_decorator(csrf_exempt, name='dispatch')
 
 
-@method_decorator(csrf_exempt, name='dispatch')
 class Loan(LoginRequiredMixin, View):
     success_url = reverse_lazy('loan_book')
 
@@ -112,6 +130,6 @@ class Loan(LoginRequiredMixin, View):
             print(item.available)
             item.available = False
             item.save()
-        print(item)
-        messages.success(request, 'Enjoy reading')
+            print(item)
+            messages.success(request, 'Enjoy reading')
         return HttpResponseRedirect(self.get_success_url())
