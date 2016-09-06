@@ -9,7 +9,7 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.generic import FormView, View
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, UpdateView, CreateView
 
 from books.forms import AddBookForm, AddAuthorForm, AddPublisherForm
 from books.models import Book, Item
@@ -52,9 +52,10 @@ class BookView(LoginRequiredMixin, View):
         return render(request, self.template_name, {'books': books})
 
 
-class BookUpdate(DetailView):
+class BookUpdate(UpdateView):
     model = Book
     template_name = 'book/detail.html'
+    fields = ('authors','publisher','title', 'isbn', 'edition', 'edition_date', 'pages', 'description')
     context_object_name = 'BOOK'
 
     def get_object(self, *arg, **kwargs):
@@ -73,11 +74,7 @@ class BookListView(ListView):
         return super(BookListView, self).dispatch(request, *args, **kwargs)
 
 
-
-        # ONLY FOR STAFF
-
-
-class AddNewBookView(LoginAndStaffRequiredMixin, FormView):
+class AddNewBookView(LoginAndStaffRequiredMixin, CreateView):
     template_name = 'add_book.html'
     form_class = {'add_book': AddBookForm, 'add_author': AddAuthorForm, 'add_publisher': AddPublisherForm}
     success_url = reverse_lazy('show_books')
