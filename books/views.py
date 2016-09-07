@@ -68,10 +68,18 @@ class AddNewBookView(LoginAndStaffRequiredMixin, CreateView):
     fields = ('authors','publisher','title', 'isbn', 'edition', 'edition_date', 'pages', 'description')
 
     def get_success_url(self):
-        return reverse('show_books')
+        return reverse('search_book')
 
-class LoanView(LoginRequiredMixin, View):
+class LoanView(LoginAndStaffRequiredMixin, View):
     template_name = 'loanWrapper.html'
+
+    def get(self, request, *args, **kwargs):
+        items = Item.objects.all().filter(available=True).values_list('books__title', flat=True).distinct()
+        books = Book.objects.all().filter(title__in=items)
+        return render(request, self.template_name, {'books': books})
+
+class ReturnView(LoginAndStaffRequiredMixin, View):
+    template_name = 'returnWrapper.html'
 
     def get(self, request, *args, **kwargs):
         items = Item.objects.all().filter(available=True).values_list('books__title', flat=True).distinct()
@@ -94,3 +102,27 @@ class Loan(LoginRequiredMixin, View):
             print(item)
             messages.success(request, 'Enjoy reading')
         return HttpResponseRedirect(self.get_success_url())
+
+
+class ResBookView(LoginRequiredMixin, View):
+    template_name = 'bookWrapper.html'
+
+    def get(self, request, *args, **kwargs):
+        books = Book.objects.all()
+        return render(request, self.template_name, {'books': books})
+
+
+class LoanedBookView(LoginRequiredMixin, View):
+    template_name = 'bookWrapper.html'
+
+    def get(self, request, *args, **kwargs):
+        books = Book.objects.all()
+        return render(request, self.template_name, {'books': books})
+
+
+class LoanBookView(LoginRequiredMixin, View):
+    template_name = 'bookWrapper.html'
+
+    def get(self, request, *args, **kwargs):
+        books = Book.objects.all()
+        return render(request, self.template_name, {'books': books})
