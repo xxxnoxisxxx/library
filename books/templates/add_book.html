@@ -10,9 +10,7 @@
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <form action="" method="post">{% csrf_token %}
-{#                {{ # add_author | crispy }}#}
-{#                {{ # add_publisher | crispy }}#}
-                {{ add_book | crispy }}
+{{ form | crispy }}
                 <input type="submit" value="Add book!" class="btn btn-primary"/>
             </form>
         </div>
