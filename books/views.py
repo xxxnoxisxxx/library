@@ -137,6 +137,14 @@ class ResBookView(LoginRequiredMixin, View):
         return render(request, self.template_name, {'books': books})
 
 
+class LoanedBookView(LoginRequiredMixin, View):
+    template_name = 'bookWrapper.html'
+
+    def get(self, request, *args, **kwargs):
+        books = Book.objects.all()
+        return render(request, self.template_name, {'books': books})
+
+
 class LoanBookView(LoginRequiredMixin, View):
     template_name = 'bookWrapper.html'
 

@@ -1,7 +1,7 @@
 import views
 from django.conf.urls import url
 
-from books.views import BookListView, BookUpdate, DashboardView, AddNewBookView, LoanView, BookView, Loan
+from books.views import *
 
 urlpatterns = [
     url(r'^$', DashboardView.as_view(), name='dashboard'),
