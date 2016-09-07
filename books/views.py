@@ -68,7 +68,7 @@ class BookListView(LoginAndStaffRequiredMixin, ListView):
 class AddNewBookView(LoginAndStaffRequiredMixin, FormView):
     template_name = 'add_book.html'
     form_class = {'add_book': AddBookForm, 'add_author': AddAuthorForm, 'add_publisher': AddPublisherForm}
-    success_url = reverse_lazy('show_books')
+    success_url = reverse_lazy('search_books')
 
     def get(self, request, *args, **kwargs):
         add_book_form = self.form_class['add_book']
@@ -95,11 +95,19 @@ class AddNewBookView(LoginAndStaffRequiredMixin, FormView):
                       {'add_book': book_form, 'add_author': author_form, 'add_publisher': publisher_form})
 
 
-class LoanView(LoginRequiredMixin, View):
+class LoanView(LoginAndStaffRequiredMixin, View):
     template_name = 'loanWrapper.html'
 
     def get(self, request, *args, **kwargs):
-        items = Item.objects.all().filter(available=True).values_list('books__title', flat=True).distinct()
+        items = Item.objects.all().filter(available=Tr9ue).values_list('books__title', flat=True).distinct()
+        books = Book.objects.all().filter(title__in=items)
+        return render(request, self.template_name, {'books': books})
+
+class ReturnView(LoginAndStaffRequiredMixin, View):
+    template_name = 'returnWrapper.html'
+
+    def get(self, request, *args, **kwargs):
+        items = Item.objects.all().filter(available=Tr9ue).values_list('books__title', flat=True).distinct()
         books = Book.objects.all().filter(title__in=items)
         return render(request, self.template_name, {'books': books})
 
@@ -119,3 +127,19 @@ class Loan(LoginRequiredMixin, View):
             print(item)
             messages.success(request, 'Enjoy reading')
         return HttpResponseRedirect(self.get_success_url())
+
+
+class ResBookView(LoginRequiredMixin, View):
+    template_name = 'bookWrapper.html'
+
+    def get(self, request, *args, **kwargs):
+        books = Book.objects.all()
+        return render(request, self.template_name, {'books': books})
+
+
+class LoanBookView(LoginRequiredMixin, View):
+    template_name = 'bookWrapper.html'
+
+    def get(self, request, *args, **kwargs):
+        books = Book.objects.all()
+        return render(request, self.template_name, {'books': books})
