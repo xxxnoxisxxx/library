@@ -13,7 +13,11 @@ urlpatterns = [
     url(r'^add_book', AddNewBookView.as_view(), name='add_book'),
     url(r'^edit_book/$', BookListView.as_view(), name='edit_book_list'),
     url(r'^edit_book/(?P<id>\d+)/$', BookUpdate.as_view(), name='book_update'),
+<<<<<<< HEAD
     url(r'^loan/', LoanPostView.as_view(), name='LoanPostView'),
+=======
+    url(r'^loan/', LoanPostView.as_view(), name='loan'),
+>>>>>>> cbb5b0f8db0eb105525fce14a6681f50e9f02b4c
 
 ]
 
