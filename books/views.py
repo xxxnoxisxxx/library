@@ -11,7 +11,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import FormView, View, ListView, DetailView, UpdateView, CreateView
 from django.views.decorators.csrf import csrf_exempt
 from books.forms import AddBookForm, AddAuthorForm, AddPublisherForm
-from books.models import Book, Item
+from books.models import Book, Item, Loan
 
 
 # LOGIN ACCESS REQUIRED
@@ -88,7 +88,7 @@ class ReturnView(LoginAndStaffRequiredMixin, View):
 
 
 @method_decorator(csrf_exempt, name='dispatch')
-class Loan(LoginRequiredMixin, FormView):
+class LoanPostView(LoginRequiredMixin, FormView):
     success_url = reverse_lazy('loan_book')
 
     def post(self, request, *args, **kwargs):
@@ -116,9 +116,9 @@ class LoanedBookView(LoginRequiredMixin, View):
     template_name = 'loanedBooksWrapper.html'
 
     def get(self, request, *args, **kwargs):
-        items = Item.objects.all().filter(available=True).values_list('books__title', flat=True).distinct()
-        books = Book.objects.all().filter(title__in=items)
-        return render(request, self.template_name, {'books': books})
+        loans = Loan.objects.all().filter(readers = request.user.reader)
+        print loans.query
+        return render(request, self.template_name, {'loans': loans})
 
 
 class LoanBookView(LoginRequiredMixin, View):
