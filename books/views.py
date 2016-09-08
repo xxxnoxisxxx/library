@@ -11,7 +11,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import FormView, View, ListView, DetailView, UpdateView, CreateView
 from django.views.decorators.csrf import csrf_exempt
 from books.forms import AddBookForm, AddAuthorForm, AddPublisherForm
-from books.models import Book, Item, Loan as loandb
+from books.models import Book, Item
 
 
 # LOGIN ACCESS REQUIRED
@@ -88,18 +88,20 @@ class ReturnView(LoginAndStaffRequiredMixin, View):
 
 
 @method_decorator(csrf_exempt, name='dispatch')
-class Loan(LoginRequiredMixin, View):
+class Loan(LoginRequiredMixin, FormView):
     success_url = reverse_lazy('loan_book')
 
     def post(self, request, *args, **kwargs):
         loan = request.body.decode('utf-8')
         loan = json.loads(loan)['selected']
-        print(loan)
         for bookid in loan:
             item = Item.objects.filter(books__id=bookid, available=True)[:1].get()
+            print(item.available)
             item.available = False
             item.save()
-        return HttpResponseRedirect(self.success_url)
+            print(item)
+            messages.success(request, 'Enjoy reading')
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class ResBookView(LoginRequiredMixin, View):
@@ -124,4 +126,3 @@ class LoanBookView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         books = Book.objects.all()
         return render(request, self.template_name, {'books': books})
-
