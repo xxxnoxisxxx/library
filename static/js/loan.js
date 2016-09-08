@@ -30,20 +30,26 @@ var selected = [];
  	selected.push($(this).val());
 });
     
-console.log(selected);
+
 
     
    if(selected.length > 0){
-
+console.log(selected);
     $.ajax({
         method: 'POST',
         url: '../loan/',
         datatype:'json',
         data:JSON.stringify({'selected': selected}),
-        success: function (data) {
-        },
         error: function (data) {
         	alert('Oops...')
+        },
+        success: function (data) {
+
+           	$(".modal-body").eq(0).html("Done!");
+           	$("#myModal").on('hidden.bs.modal', function () {
+  			document.location.reload(true);
+
+		});
         }
        }); 
        

@@ -11,7 +11,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import FormView, View, ListView, DetailView, UpdateView, CreateView
 from django.views.decorators.csrf import csrf_exempt
 from books.forms import AddBookForm, AddAuthorForm, AddPublisherForm
-from books.models import Book, Item
+from books.models import Book, Item, Loan as loandb
 
 
 # LOGIN ACCESS REQUIRED
@@ -111,11 +111,12 @@ class Loan(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         loan = request.body.decode('utf-8')
         loan = json.loads(loan)['selected']
+        print(loan)
         for bookid in loan:
             item = Item.objects.filter(books__id=bookid, available=True)[:1].get()
-            print(item.available)
             item.available = False
             item.save()
-            print(item)
-            messages.success(request, 'Enjoy reading')
-        return HttpResponseRedirect(self.get_success_url())
+           # loan = loandb.objects.create(item__id, 1)
+            #loan.save(); 
+  	return HttpResponseRedirect(self.success_url)
+
