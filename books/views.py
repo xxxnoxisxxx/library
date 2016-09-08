@@ -3,7 +3,7 @@ import json
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
@@ -28,8 +28,6 @@ class LoginAndStaffRequiredMixin(object):
     def dispatch(self, request, *args, **kwargs):
         return super(LoginAndStaffRequiredMixin, self).dispatch(request, *args, **kwargs)
 
-
-
 class DashboardView(LoginRequiredMixin, View):
     template_name = 'index.html'
 
@@ -45,12 +43,11 @@ class BookView(LoginRequiredMixin, View):
         return render(request, self.template_name, {'books': books})
 
 
-class BookUpdate(LoginAndStaffRequiredMixin,DetailView):
+class BookUpdate(LoginAndStaffRequiredMixin,UpdateView):
 
     model = Book
     template_name = 'book/detail.html'
     fields = ('authors','publisher','title', 'isbn', 'edition', 'edition_date', 'pages', 'description')
-    context_object_name = 'BOOK'
 
     def get_object(self, *arg, **kwargs):
         return get_object_or_404(Book, id=self.kwargs['id'])
@@ -65,38 +62,24 @@ class BookListView(LoginAndStaffRequiredMixin, ListView):
         return super(BookListView, self).dispatch(request, *args, **kwargs)
 
 
-class AddNewBookView(LoginAndStaffRequiredMixin, FormView):
+class AddNewBookView(LoginAndStaffRequiredMixin, CreateView):
+    model = Book
     template_name = 'add_book.html'
-    form_class = {'add_book': AddBookForm, 'add_author': AddAuthorForm, 'add_publisher': AddPublisherForm}
-    success_url = reverse_lazy('show_books')
+    fields = ('authors','publisher','title', 'isbn', 'edition', 'edition_date', 'pages', 'description')
+
+    def get_success_url(self):
+        return reverse('search_book')
+
+class LoanView(LoginAndStaffRequiredMixin, View):
+    template_name = 'loanWrapper.html'
 
     def get(self, request, *args, **kwargs):
-        add_book_form = self.form_class['add_book']
-        add_author_form = self.form_class['add_author']
-        add_publisher_form = self.form_class['add_publisher']
-        return render(request, self.template_name,
-                      {'add_book': add_book_form, 'add_author': add_author_form, 'add_publisher': add_publisher_form})
+        items = Item.objects.all().filter(available=True).values_list('books__title', flat=True).distinct()
+        books = Book.objects.all().filter(title__in=items)
+        return render(request, self.template_name, {'books': books})
 
-    def post(self, request, *args, **kwargs):
-        author_form = AddAuthorForm(request.POST)
-        publisher_form = AddPublisherForm(request.POST)
-        book_form = AddBookForm(request.POST)
-        if author_form.is_valid() and publisher_form.is_valid() and book_form.is_valid():
-            new_author = author_form.save(commit=False)
-            new_author.save()
-            new_publisher = publisher_form.save(commit=False)
-            new_publisher.save()
-            new_book = book_form.save(commit=False)
-            new_book.author = new_author
-            new_book.publisher = new_publisher
-            new_book.save()
-            return HttpResponseRedirect(self.get_success_url())
-        return render(request, self.template_name,
-                      {'add_book': book_form, 'add_author': author_form, 'add_publisher': publisher_form})
-
-
-class LoanView(LoginRequiredMixin, View):
-    template_name = 'loanWrapper.html'
+class ReturnView(LoginAndStaffRequiredMixin, View):
+    template_name = 'returnWrapper.html'
 
     def get(self, request, *args, **kwargs):
         items = Item.objects.all().filter(available=True).values_list('books__title', flat=True).distinct()
@@ -116,7 +99,28 @@ class Loan(LoginRequiredMixin, View):
             item = Item.objects.filter(books__id=bookid, available=True)[:1].get()
             item.available = False
             item.save()
-           # loan = loandb.objects.create(item__id, 1)
-            #loan.save(); 
-  	return HttpResponseRedirect(self.success_url)
+        return HttpResponseRedirect(self.get_success_url())
 
+
+class ResBookView(LoginRequiredMixin, View):
+    template_name = 'bookWrapper.html'
+
+    def get(self, request, *args, **kwargs):
+        books = Book.objects.all()
+        return render(request, self.template_name, {'books': books})
+
+
+class LoanedBookView(LoginRequiredMixin, View):
+    template_name = 'bookWrapper.html'
+
+    def get(self, request, *args, **kwargs):
+        books = Book.objects.all()
+        return render(request, self.template_name, {'books': books})
+
+
+class LoanBookView(LoginRequiredMixin, View):
+    template_name = 'bookWrapper.html'
+
+    def get(self, request, *args, **kwargs):
+        books = Book.objects.all()
+        return render(request, self.template_name, {'books': books})
