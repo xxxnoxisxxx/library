@@ -12,12 +12,9 @@ from django.views.generic import FormView, View, ListView, DetailView, UpdateVie
 from django.views.decorators.csrf import csrf_exempt
 from books.forms import AddBookForm, AddAuthorForm, AddPublisherForm
 from books.models import Book, Item, Loan
-<<<<<<< HEAD
 
-=======
 from account.models import Reader
 from pprint import pprint
->>>>>>> cbb5b0f8db0eb105525fce14a6681f50e9f02b4c
 
 # LOGIN ACCESS REQUIRED
 class LoginRequiredMixin(object):
