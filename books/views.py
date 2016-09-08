@@ -99,7 +99,7 @@ class Loan(LoginRequiredMixin, View):
             item = Item.objects.filter(books__id=bookid, available=True)[:1].get()
             item.available = False
             item.save()
-        return HttpResponseRedirect(self.get_success_url())
+        return HttpResponseRedirect(self.success_url)
 
 
 class ResBookView(LoginRequiredMixin, View):
@@ -124,3 +124,4 @@ class LoanBookView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         books = Book.objects.all()
         return render(request, self.template_name, {'books': books})
+
