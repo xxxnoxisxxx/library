@@ -32,23 +32,35 @@
                 <a href="{% url 'dashboard' %}">Main Page</a>
             </li>
             {% if user.is_authenticated %}
-                <li>
-                    <a href="{% url 'user_list' %}">User Profile</a>
-                </li>
+                
             	{% if user.is_staff %}
+            		<li>
+                   	 	<a href="{% url 'user_list' %}">User Profile</a>
+               	        </li>
                 	<li>
-                	    <a href="{% url 'add_book' %}">Add Book</a>
+                	    	<a href="{% url 'add_book' %}">Add Book</a>
                 	</li>
                 	<li>
-                 	   <a href="{% url 'edit_book_list' %}">Edit Book</a>
+                 	   	<a href="{% url 'edit_book_list' %}">Edit Book</a>
+                	</li>
+                	<li>
+                    		<a href="{% url 'loan_book' %}">Loan books</a>
+                	</li>
+                	<li>
+                    		<a href="{% url 'return_book' %}">Return books</a>
                 	</li>
             	{% endif %}
-                <li>
-                    <a href="{% url 'search_books' %}">Search book</a>
-                </li>
-                <li>
-                    <a href="{% url 'loan_book' %}">Loan books</a>
-                </li>
+            	{% if not user.is_staff %}
+               		 <li>
+                	        <a href="{% url 'search_books' %}">Search book</a>
+                         </li>
+               	         <li>
+                	        <a href="{% url 'loaned_books' %}">Loaned books</a>
+               		 </li>
+                	 <li>
+                   		<a href="{% url 'reserve_books' %}">Reserve books</a>
+                	 </li>
+                {% endif %}
                 <li>
                     <a href="{% url 'logout' %}">Logout</a>
                 </li>
