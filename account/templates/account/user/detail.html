@@ -4,10 +4,10 @@
 {% block content %}
 
 <div class="page-header">
-    Books history
+    <h2>Loan history</h2>
 </div>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-lg-10 col-lg-offset-1">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h3 class="panel-title">Borrowed books</h3>
@@ -17,22 +17,22 @@
                         <tr>
                             <th>#</th>
                             <th>Authors</th>
+                            <th>Title</th>
                             <th>Loan Date</th>
                             <th>Return Date</th>
                             <th>Status</th>
                         </tr>
                         </thead>
                         <tbody>
-                        {% for loan in user.loans %}
-                            {% for item in loan.items %}
-                                <tr>
+                        {% for loan in user.reader.loan_set.all %}
+                        <tr>
                                     <td>{{ forloop.counter }}</td>
-                                    <td>{{ item.authors }}</td>
+                                    <td>{{ loan.items.books }}</td>
+                                    <td>{{ loan.items.books.authors.all|join:", " }}</td>
                                     <td>{{ loan.loan_date }}</td>
                                     <td>{{ loan.return_date }}</td>
-                                    <td>{{ loan.loan_status }}</td>
+                                    <td>1 todo</td>
                                 </tr>
-                            {% endfor %}
                         {% endfor %}
                         </tbody>
                     </table>

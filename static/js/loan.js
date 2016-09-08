@@ -24,22 +24,22 @@ $(document).ready(function() {
 
 
 function loan() {
-var selected = [];
+var selected_books = [];
+var selected_user = $('input:radio:checked').val()
     	
-    	       $("input:checked", $('#loan-wrapper').dataTable().fnGetNodes()).each(function(){
- 	selected.push($(this).val());
+    	       $("input:checkbox:checked", $('#loan-wrapper').dataTable().fnGetNodes()).each(function(){
+ 	selected_books.push($(this).val());
 });
     
 
 
     
-   if(selected.length > 0){
-console.log(selected);
+   if(selected_books.length > 0){
     $.ajax({
         method: 'POST',
         url: '../loan/',
         datatype:'json',
-        data:JSON.stringify({'selected': selected}),
+        data:JSON.stringify({'selected_books': selected_books, 'selected_user' : selected_user}),
         error: function (data) {
         	alert('Oops...')
         },
@@ -48,7 +48,6 @@ console.log(selected);
            	$(".modal-body").eq(0).html("Done!");
            	$("#myModal").on('hidden.bs.modal', function () {
   			document.location.reload(true);
-
 		});
         }
        }); 
