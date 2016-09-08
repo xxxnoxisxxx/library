@@ -96,13 +96,18 @@ class LoanPostView(LoginRequiredMixin, FormView):
 
     def post(self, request, *args, **kwargs):
         loan = request.body.decode('utf-8')
-        loan = json.loads(loan)['selected']
+        data = json.loads(loan)
+        loan = data['selected_books']
+        user = data['selected_user']
+        print(loan)
+        print(user)
         for bookid in loan:
             item = Item.objects.filter(books__id=bookid, available=True)[:1].get()
             print(item)
             item.available = False
+            reader = Reader.objects.get(id=user)
+            loan = Loan(items = item, readers = reader)
             item.save()
-            loan = Loan(items = item, readers = request.user.reader)
             loan.save()
             messages.success(request, 'Enjoy reading')
         return HttpResponseRedirect(self.get_success_url())
