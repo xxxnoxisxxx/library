@@ -52,11 +52,7 @@
                 {% for BOOK in books %}
                     <tr>
                         <td>{{ BOOK.publisher }}</td>
-                        <td>
-                        	{% for author in BOOK.authors.all %}
-                        		{{ author }}
-                        	{% endfor %}
-                        </td>
+                        <td>{{ BOOK.authors.all|join:", " }}</td>
                         <td>{{ BOOK.title }}</td>
                         <td>{{ BOOK.isbn }}</td>
                         <td>{{ BOOK.edition }}</td>

@@ -11,8 +11,9 @@ from django.utils.decorators import method_decorator
 from django.views.generic import FormView, View, ListView, DetailView, UpdateView, CreateView
 from django.views.decorators.csrf import csrf_exempt
 from books.forms import AddBookForm, AddAuthorForm, AddPublisherForm
-from books.models import Book, Item
-
+from books.models import Book, Item, Loan
+from account.models import Reader
+from pprint import pprint
 
 # LOGIN ACCESS REQUIRED
 class LoginRequiredMixin(object):
@@ -76,7 +77,8 @@ class LoanView(LoginAndStaffRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         items = Item.objects.all().filter(available=True).values_list('books__title', flat=True).distinct()
         books = Book.objects.all().filter(title__in=items)
-        return render(request, self.template_name, {'books': books})
+        readers = Reader.objects.all()
+        return render(request, self.template_name, {'books': books, 'readers': readers})
 
 class ReturnView(LoginAndStaffRequiredMixin, View):
     template_name = 'returnWrapper.html'
@@ -88,18 +90,20 @@ class ReturnView(LoginAndStaffRequiredMixin, View):
 
 
 @method_decorator(csrf_exempt, name='dispatch')
-class Loan(LoginRequiredMixin, FormView):
+class LoanPostView(LoginRequiredMixin, FormView):
     success_url = reverse_lazy('loan_book')
+   
 
     def post(self, request, *args, **kwargs):
         loan = request.body.decode('utf-8')
         loan = json.loads(loan)['selected']
         for bookid in loan:
             item = Item.objects.filter(books__id=bookid, available=True)[:1].get()
-            print(item.available)
+            print(item)
             item.available = False
             item.save()
-            print(item)
+            loan = Loan(items = item, readers = request.user.reader)
+            loan.save()
             messages.success(request, 'Enjoy reading')
         return HttpResponseRedirect(self.get_success_url())
 
