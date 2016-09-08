@@ -111,10 +111,11 @@ class ResBookView(LoginRequiredMixin, View):
 
 
 class LoanedBookView(LoginRequiredMixin, View):
-    template_name = 'bookWrapper.html'
+    template_name = 'loanedBooksWrapper.html'
 
     def get(self, request, *args, **kwargs):
-        books = Book.objects.all()
+        items = Item.objects.all().filter(available=True).values_list('books__title', flat=True).distinct()
+        books = Book.objects.all().filter(title__in=items)
         return render(request, self.template_name, {'books': books})
 
 

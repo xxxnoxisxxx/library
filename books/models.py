@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
+from django.utils.timezone import now
 
 
 class Author(models.Model):
@@ -81,13 +82,15 @@ class Loan(models.Model):
     """Class represents lean book by reader"""
     items = models.ForeignKey(Item, blank=True, null=True, on_delete=models.CASCADE)
 
-    loan_date = models.DateTimeField(datetime.now())
-    return_date = models.DateTimeField(datetime.now()+timedelta(days=7))
+    # loan_date = models.DateTimeField(datetime.now())
+    # return_date = models.DateTimeField(datetime.now()+timedelta(days=7))
+    loan_date = models.DateTimeField(default=now())
+    return_date = models.DateTimeField(default=now()+timedelta(days=7))
     loan_status = models.IntegerField()
 
     class Meta:
         db_table = 'loan'
 
     def __unicode__(self):
-        return "%s %s" % (self.items.books.name, self.loan_date, self.return_date)
+        return "%s %s %s" % (self.items.books.title, self.loan_date, self.return_date)
 
