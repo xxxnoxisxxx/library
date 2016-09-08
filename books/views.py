@@ -12,6 +12,7 @@ from django.views.generic import FormView, View, ListView, DetailView, UpdateVie
 from django.views.decorators.csrf import csrf_exempt
 from books.forms import AddBookForm, AddAuthorForm, AddPublisherForm
 from books.models import Book, Item, Loan
+
 from account.models import Reader
 from pprint import pprint
 
@@ -125,9 +126,9 @@ class LoanedBookView(LoginRequiredMixin, View):
     template_name = 'loanedBooksWrapper.html'
 
     def get(self, request, *args, **kwargs):
-        items = Item.objects.all().filter(available=True).values_list('books__title', flat=True).distinct()
-        books = Book.objects.all().filter(title__in=items)
-        return render(request, self.template_name, {'books': books})
+        loans = Loan.objects.all().filter(readers = request.user.reader)
+        print loans.query
+        return render(request, self.template_name, {'loans': loans})
 
 
 class LoanBookView(LoginRequiredMixin, View):
