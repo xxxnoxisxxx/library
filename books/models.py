@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 from datetime import datetime, timedelta
 from django.db import models
 from django.contrib.auth.models import User
+from account.models import Reader
 from django.core.urlresolvers import reverse
 from django.utils.timezone import now
 
@@ -67,6 +68,7 @@ class Item(models.Model):
 class Reservation(models.Model):
     """Class represents reservation"""
     books = models.ForeignKey(Book, blank=True, null=True, on_delete=models.CASCADE)
+    readers = models.ForeignKey(Reader, blank=True, null=True, on_delete=models.CASCADE)
 
     reservation_date = models.DateField()
     reservation_status = models.IntegerField(default=7)
@@ -81,12 +83,10 @@ class Reservation(models.Model):
 class Loan(models.Model):
     """Class represents lean book by reader"""
     items = models.ForeignKey(Item, blank=True, null=True, on_delete=models.CASCADE)
+    readers = models.ForeignKey(Reader, blank=True, null=True, on_delete=models.CASCADE)
 
-    # loan_date = models.DateTimeField(datetime.now())
-    # return_date = models.DateTimeField(datetime.now()+timedelta(days=7))
-    loan_date = models.DateTimeField(default=now())
-    return_date = models.DateTimeField(default=now()+timedelta(days=7))
-    loan_status = models.IntegerField()
+    loan_date = models.DateTimeField(auto_now = True)
+    return_date = models.DateTimeField(default=now()+timedelta(days=30), editable = False)
 
     class Meta:
         db_table = 'loan'
