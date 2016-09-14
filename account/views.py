@@ -29,6 +29,13 @@ class LoginRequiredMixin(object):
         return super(LoginRequiredMixin, self).dispatch(request, *args, **kwargs)
 
 
+'''
+This class represent view with form to login into library
+on GET request we have form to input our credentials
+on POST request we check given input and if they are valid login into.
+'''
+
+
 class LoginPageView(FormView):
     template_name = 'login.html'
     form_class = LoginForm
@@ -52,6 +59,13 @@ class LoginPageView(FormView):
             else:
                 messages.error(request, 'User not found. Please enter correct parameters.')
         return render(request, self.template_name, {'form': user_form})
+
+
+'''
+This class represent view with form to register new user
+on GET request we have form to input data about new user
+on POST request we check given input and if they are new user is added into database
+'''
 
 
 class RegisterNewUserView(FormView):
@@ -78,6 +92,11 @@ class RegisterNewUserView(FormView):
         return render(request, self.template_name, {'form': user_form, 'form_imp': form_imp})
 
 
+'''
+This class represent view with logout response
+'''
+
+
 class LogoutPageView(LoginRequiredMixin, View):
     template_name = 'logout.html'
 
@@ -89,6 +108,11 @@ class LogoutPageView(LoginRequiredMixin, View):
             return HttpResponseRedirect(reverse('dashboard'))
 
 
+'''
+This class represent view list all active users
+'''
+
+
 class UserListPageView(LoginRequiredMixin, ListView):
     context_object_name = 'users'
     queryset = User.objects.filter(is_active=True).exclude(username='admin')
@@ -97,6 +121,11 @@ class UserListPageView(LoginRequiredMixin, ListView):
     @method_decorator(staff_member_required)
     def dispatch(self, request, *args, **kwargs):
         return super(UserListPageView, self).dispatch(request, *args, **kwargs)
+
+
+'''
+This class represent detail view for selected user
+'''
 
 
 class UserDetailsPageView(LoginRequiredMixin, DetailView):

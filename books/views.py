@@ -16,11 +16,13 @@ from books.models import Book, Item, Loan
 from account.models import Reader
 from pprint import pprint
 
+
 # LOGIN ACCESS REQUIRED
 class LoginRequiredMixin(object):
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         return super(LoginRequiredMixin, self).dispatch(request, *args, **kwargs)
+
 
 # LOGIN ACCESS REQUIRED
 # ONLY FOR STAFF
@@ -30,11 +32,18 @@ class LoginAndStaffRequiredMixin(object):
     def dispatch(self, request, *args, **kwargs):
         return super(LoginAndStaffRequiredMixin, self).dispatch(request, *args, **kwargs)
 
+
+'''Class represent main view of webpage'''
+
+
 class DashboardView(LoginRequiredMixin, View):
     template_name = 'index.html'
 
     def get(self, request, *arg, **kwargs):
         return render(request, self.template_name)
+
+
+'''Class represents view with list all books'''
 
 
 class BookView(LoginRequiredMixin, View):
@@ -45,14 +54,19 @@ class BookView(LoginRequiredMixin, View):
         return render(request, self.template_name, {'books': books})
 
 
-class BookUpdate(LoginAndStaffRequiredMixin,UpdateView):
+'''Class represent view used for edit books'''
 
+
+class BookUpdate(LoginAndStaffRequiredMixin, UpdateView):
     model = Book
     template_name = 'book/detail.html'
-    fields = ('authors','publisher','title', 'isbn', 'edition', 'edition_date', 'pages', 'description')
+    fields = ('authors', 'publisher', 'title', 'isbn', 'edition', 'edition_date', 'pages', 'description')
 
     def get_object(self, *arg, **kwargs):
         return get_object_or_404(Book, id=self.kwargs['id'])
+
+
+'''Class represents view with list all books'''
 
 
 class BookListView(LoginAndStaffRequiredMixin, ListView):
@@ -64,13 +78,20 @@ class BookListView(LoginAndStaffRequiredMixin, ListView):
         return super(BookListView, self).dispatch(request, *args, **kwargs)
 
 
+'''Class represents view to add new books'''
+
+
 class AddNewBookView(LoginAndStaffRequiredMixin, CreateView):
     model = Book
     template_name = 'add_book.html'
-    fields = ('authors','publisher','title', 'isbn', 'edition', 'edition_date', 'pages', 'description')
+    fields = ('authors', 'publisher', 'title', 'isbn', 'edition', 'edition_date', 'pages', 'description')
 
     def get_success_url(self):
-        return reverse('search_book')
+        return reverse('search_books')
+
+
+'''Class represents view to loan books'''
+
 
 class LoanView(LoginAndStaffRequiredMixin, View):
     template_name = 'loanWrapper.html'
@@ -81,6 +102,10 @@ class LoanView(LoginAndStaffRequiredMixin, View):
         readers = Reader.objects.all()
         return render(request, self.template_name, {'books': books, 'readers': readers})
 
+
+'''Class represents view to return books'''
+
+
 class ReturnView(LoginAndStaffRequiredMixin, View):
     template_name = 'returnWrapper.html'
 
@@ -90,10 +115,12 @@ class ReturnView(LoginAndStaffRequiredMixin, View):
         return render(request, self.template_name, {'books': books})
 
 
+'''Class handle form for loan books'''
+
+
 @method_decorator(csrf_exempt, name='dispatch')
 class LoanPostView(LoginRequiredMixin, FormView):
     success_url = reverse_lazy('loan_book')
-   
 
     def post(self, request, *args, **kwargs):
         loan = request.body.decode('utf-8')
@@ -107,11 +134,14 @@ class LoanPostView(LoginRequiredMixin, FormView):
             print(item)
             item.available = False
             reader = Reader.objects.get(id=user)
-            loan = Loan(items = item, readers = reader)
+            loan = Loan(items=item, readers=reader)
             item.save()
             loan.save()
             messages.success(request, 'Enjoy reading')
         return HttpResponseRedirect(self.get_success_url())
+
+
+'''Class represents view with reserved books'''
 
 
 class ResBookView(LoginRequiredMixin, View):
@@ -122,13 +152,19 @@ class ResBookView(LoginRequiredMixin, View):
         return render(request, self.template_name, {'books': books})
 
 
+'''Class represents view with list all loaned books'''
+
+
 class LoanedBookView(LoginRequiredMixin, View):
     template_name = 'loanedBooksWrapper.html'
 
     def get(self, request, *args, **kwargs):
-        loans = Loan.objects.all().filter(readers = request.user.reader)
-        print loans.query
+        loans = Loan.objects.all().filter(readers=request.user.reader)
+        print(loans.query)
         return render(request, self.template_name, {'loans': loans})
+
+
+'''Class represents view with list all books'''
 
 
 class LoanBookView(LoginRequiredMixin, View):

@@ -5,6 +5,7 @@ from django.contrib.admin import widgets
 
 
 class AddBookForm(forms.ModelForm):
+    """Class represents form for adding new books to library"""
     class Meta:
         model = Book
         fields = ('authors', 'publisher', 'title', 'isbn', 'edition', 'edition_date', 'pages', 'description')
@@ -20,6 +21,7 @@ class AddBookForm(forms.ModelForm):
 
 
 class AddAuthorForm(forms.ModelForm):
+    """Class represents form for adding new authors of books to library"""
     class Meta:
         model = Author
         fields = ('name', 'surname')
@@ -30,6 +32,7 @@ class AddAuthorForm(forms.ModelForm):
 
 
 class AddPublisherForm(forms.ModelForm):
+    """Class represents form for adding new publishers of books to library"""
     class Meta:
         model = Publisher
         fields = ('name',)
