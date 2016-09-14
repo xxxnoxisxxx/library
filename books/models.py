@@ -49,7 +49,7 @@ class Book(models.Model):
         db_table = 'book'
 
     def __unicode__(self):
-        return self.title
+        return "%s, Edition: %s" %(self.title, self.edition)
 
 
 class Item(models.Model):

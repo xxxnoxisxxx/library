@@ -72,6 +72,15 @@ class AddNewBookView(LoginAndStaffRequiredMixin, CreateView):
 
     def get_success_url(self):
         return reverse('search_books')
+        
+        
+class AddNewItemView(LoginAndStaffRequiredMixin, CreateView):
+    model = Item
+    template_name = 'add_item.html'
+    fields = ('books', 'available')
+    
+    def get_success_url(self):
+        return reverse('search_books')
 
 class LoanView(LoginAndStaffRequiredMixin, View):
     template_name = 'loanWrapper.html'
