@@ -12,7 +12,7 @@ from django.views.generic import FormView, View, ListView, DetailView, UpdateVie
 from django.views.decorators.csrf import csrf_exempt
 from books.forms import AddBookForm, AddAuthorForm, AddPublisherForm
 from books.models import Book, Item, Loan
-
+import datetime
 from account.models import Reader
 from pprint import pprint
 
@@ -122,7 +122,8 @@ class ReturnView(LoginAndStaffRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         items = Item.objects.all().filter(available=True).values_list('books__title', flat=True).distinct()
         books = Book.objects.all().filter(title__in=items)
-        return render(request, self.template_name, {'books': books})
+        todayoffset = datetime.date.today() - datetime.timedelta(days=30)
+        return render(request, self.template_name, {'books': books, 'todayoffset': todayoffset})
 
 
 '''Class handle form for loan books'''

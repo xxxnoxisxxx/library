@@ -15,6 +15,7 @@ from account.forms import RegisterReaderForm
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.admin.views.decorators import staff_member_required
+import datetime
 
 # Create your views here.
 
@@ -139,3 +140,9 @@ class UserDetailsPageView(LoginRequiredMixin, DetailView):
     @method_decorator(staff_member_required)
     def dispatch(self, request, *args, **kwargs):
         return super(UserDetailsPageView, self).dispatch(request, *args, **kwargs)
+        
+    def get_context_data(self, *args, **kwargs):
+        context = super(UserDetailsPageView, self).get_context_data(*args, **kwargs)
+        todayoffset = datetime.date.today() - datetime.timedelta(days=30)
+        context['UserDetailsPageView'] = todayoffset
+        return context
