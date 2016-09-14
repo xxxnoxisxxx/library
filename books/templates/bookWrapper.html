@@ -58,7 +58,13 @@
                         <td>{{ BOOK.edition }}</td>
                         <td>{{ BOOK.edition_date }}</td>
                         <td>{{ BOOK.pages }}</td>
-                        <td>{{ BOOK.available }}</td>
+                        <td>
+                        {% if BOOK.id in av_books %}
+				Available!
+			{% else %}
+				Not Available!	
+			{% endif %}
+                        </td>
                         <td>{{ BOOK.description }}</td>
                         <td>
                             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">

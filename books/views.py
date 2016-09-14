@@ -42,7 +42,8 @@ class BookView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
         books = Book.objects.all()
-        return render(request, self.template_name, {'books': books})
+        av_books = Item.objects.all().filter(available=True).values_list('books__id', flat=True).distinct()
+        return render(request, self.template_name, {'books': books, 'av_books': av_books})
 
 
 class BookUpdate(LoginAndStaffRequiredMixin,UpdateView):
