@@ -15,5 +15,6 @@ urlpatterns = [
     url(r'^edit_book/$', BookListView.as_view(), name='edit_book_list'),
     url(r'^edit_book/(?P<id>\d+)/$', BookUpdate.as_view(), name='book_update'),
     url(r'^loan/', LoanPostView.as_view(), name='LoanPostView'),
+    url(r'^returnloanedbook/', ReturnPostView.as_view(), name='ReturnPostView'),
 ]
 

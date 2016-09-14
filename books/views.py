@@ -15,7 +15,7 @@ from books.models import Book, Item, Loan
 import datetime
 from account.models import Reader
 from pprint import pprint
-
+from django.utils.timezone import now
 
 # LOGIN ACCESS REQUIRED
 class LoginRequiredMixin(object):
@@ -120,10 +120,9 @@ class ReturnView(LoginAndStaffRequiredMixin, View):
     template_name = 'returnWrapper.html'
 
     def get(self, request, *args, **kwargs):
-        items = Item.objects.all().filter(available=True).values_list('books__title', flat=True).distinct()
-        books = Book.objects.all().filter(title__in=items)
-        todayoffset = datetime.date.today() - datetime.timedelta(days=30)
-        return render(request, self.template_name, {'books': books, 'todayoffset': todayoffset})
+        loans = Loan.objects.all().filter(return_date__gt=now())
+        todayoffset = now() - datetime.timedelta(days=30)
+        return render(request, self.template_name, {'loans': loans, 'todayoffset':todayoffset})
 
 
 '''Class handle form for loan books'''
@@ -150,7 +149,24 @@ class LoanPostView(LoginRequiredMixin, FormView):
             loan.save()
             messages.success(request, 'Enjoy reading')
         return HttpResponseRedirect(self.get_success_url())
-
+        
+@method_decorator(csrf_exempt, name='dispatch')
+class ReturnPostView(LoginRequiredMixin, FormView):
+    success_url = reverse_lazy('search_books')
+    
+    def post(self, request, *args, **kwargs):
+	loan = request.body.decode('utf-8')
+	data = json.loads(loan)
+	loanid = data['selected_book']
+	loan = Loan.objects.get(id=loanid)
+	item = Item.objects.get(id=loan.items.id)
+	loan.return_date = now()
+	loan.save()
+	item.available=True
+	item.save()
+	loan = Loan.objects.get(id=loanid).items.available
+	print(loan)
+        return HttpResponseRedirect(self.get_success_url())
 
 '''Class represents view with reserved books'''
 

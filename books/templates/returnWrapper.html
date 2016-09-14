@@ -49,45 +49,41 @@
 	<table id="loan-wrapper" class="table table-striped table-bordered text-center" width="100%" cellspacing="0">
 		<thead>
 			<tr>
-				<th></th>
-				<th>Publisher</th>
-				<th>Author</th>
+				<th>Return</th>
+				<th>Name</th>
+				<th>Surmane</th>
 				<th>Title</th>
-				<th>ISBN</th>
-				<th>Edition</th>
-				<th>Edition date</th>
-				<th>Pages</th>
-				<th>Description</th>
-				<th>Show Description</th>
+				<th>Loan date</th>
+				<th>Return date</th>
+				<th>Status</th>
 			</tr>
 		</thead>
 		<tbody>
-		{% for BOOK in books %}
+		{% for LOAN in loans %}
 		<tr>
-			<td><input type="checkbox" name="checkbox" value="{{BOOK.id}}"></td>
-			<td>{{BOOK.publisher}}</td>
-			<td>{{BOOK.authors.all|join:", " }}</td>
-			<td>{{BOOK.title}}</td>
-			<td>{{BOOK.isbn}}</td>
-			<td>{{BOOK.edition}}</td>
-			<td>{{BOOK.edition_date}}</td>
-			<td>{{BOOK.pages}}</td>
-			<td>{{BOOK.description}}</td>
-			<td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Click</button></td>
+			<td><input type="radio" name="radio" value="{{LOAN.id}}" checked></td>
+			<td>{{LOAN.readers.reader.last_name}}</td>
+			<td>{{LOAN.readers.reader.last_name}}</td>
+			<td>{{LOAN.items.books}}</td>
+			<td>{{LOAN.loan_date}}</td>
+			<td>{{LOAN.return_date}}</td>
+			{% if todayoffset|date:"Y-m-d H:M:S" < LOAN.return_date|date:"Y-m-d H:M:S" %}
+                                    	<td>OK</td>
+                                    {% else %}
+                                    	<td>NOT OK</td>
+                                    {% endif %}
 		</tr>
-		
-		
 		{% endfor %}
 		</tbody>
 	</table>
-	
+		<td><button type="button" class="btn btn-info" onclick="return_book()">Click</button></td>
 	</div>
 </div>
 {% endblock %}
 {% block js %}
     <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
-    <script src="{% static "js/loan.js" %}"></script>
+    <script src="{% static "js/return_book.js" %}"></script>
 
 {% endblock %}
 
