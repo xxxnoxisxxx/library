@@ -70,7 +70,7 @@ class AddNewBookView(LoginAndStaffRequiredMixin, CreateView):
     fields = ('authors','publisher','title', 'isbn', 'edition', 'edition_date', 'pages', 'description')
 
     def get_success_url(self):
-        return reverse('search_book')
+        return reverse('search_books')
 
 class LoanView(LoginAndStaffRequiredMixin, View):
     template_name = 'loanWrapper.html'
