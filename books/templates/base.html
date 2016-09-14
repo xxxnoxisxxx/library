@@ -72,9 +72,19 @@
     </div>
     <div id="page-content-wrapper">
         <div class="container-fluid">
-
-            {% block content %}
-            {% endblock %}
+            <div class="row">
+                <div class="page-header">
+                    {% block headerrr %}
+                    {% endblock %}
+                </div>
+                <div class="col-lg-10">
+                    {% block content %}
+                    {% endblock %}
+                </div>
+                <div class="col-lg-2">
+                    <img src="{% static "media/books.jpg" %}" alt="Books Image" height="400" width="115"> 
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block title %}Main Page{% endblock %}
+
 {% block content %}
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -25,9 +26,9 @@
 </div>
 
 
-<div class="page-header">
-    <h2>Available books<h2>
-</div>
+{% block header %}	
+    <h2>Available books</h2>
+{% endblock %}
 
 
  <div class="row">
