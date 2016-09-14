@@ -32,13 +32,13 @@ class Publisher(models.Model):
 class Book(models.Model):
     """Class represents book"""
 
-    authors = models.ManyToManyField(Author, blank=True)
-    publisher = models.ForeignKey(Publisher, blank=True, null=True, on_delete=models.CASCADE)
+    authors = models.ManyToManyField(Author, blank=False)
+    publisher = models.ForeignKey(Publisher, blank=False, null=False, on_delete=models.CASCADE)
 
     title = models.CharField(max_length=50)
     isbn = models.CharField(max_length=20)
     edition = models.IntegerField(blank=True, null=True)
-    edition_date = models.DateField(blank=True, null=True)
+    edition_date = models.DateField(blank=False, null=True)
     pages = models.IntegerField()
     description = models.TextField()
 
