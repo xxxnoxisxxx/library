@@ -20,18 +20,16 @@
                             <th>Title</th>
                             <th>Loan Date</th>
                             <th>Return Date</th>
-                            <th>Status</th>
                         </tr>
                         </thead>
                         <tbody>
-                        {% for loan in user.reader.loan_set.all %}
+                        {% for loan in reader.reader.loan_set.all %}
                         <tr>
                                     <td>{{ forloop.counter }}</td>
                                     <td>{{ loan.items.books }}</td>
                                     <td>{{ loan.items.books.authors.all|join:", " }}</td>
                                     <td>{{ loan.loan_date }}</td>
                                     <td>{{ loan.return_date }}</td>
-                                    <td>1 todo</td>
                                 </tr>
                         {% endfor %}
                         </tbody>

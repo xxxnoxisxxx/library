@@ -49,7 +49,7 @@ class Book(models.Model):
         db_table = 'book'
 
     def __unicode__(self):
-        return self.title
+        return "%s, Edition: %s" %(self.title, self.edition)
 
 
 class Item(models.Model):
@@ -92,5 +92,5 @@ class Loan(models.Model):
         db_table = 'loan'
 
     def __unicode__(self):
-        return "%s %s %s" % (self.items.books.title, self.loan_date, self.return_date)
+        return "%s [%s] [%s]" % (self.items.books.title, self.loan_date.strftime("%Y-%m-%d %H:%M"), self.return_date.strftime("%Y-%m-%d %H:%M"))
 

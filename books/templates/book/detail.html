@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
+{% load staticfiles %} 
 {% block title %}Add Book{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+{% endblock %}
 {% block content %}
     <div class="page-header">
         <h2>Library
@@ -15,4 +19,12 @@
             </form>
         </div>
     </div>
-{% endblock %}
+    {% endblock %}
+    {% block js %}
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+    <script>
+        $(function () {
+            $("#id_edition_date").datepicker();
+        });
+    </script>
+    {% endblock %}

@@ -15,6 +15,7 @@ from account.forms import RegisterReaderForm
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.admin.views.decorators import staff_member_required
+import datetime
 
 # Create your views here.
 
@@ -27,6 +28,13 @@ class LoginRequiredMixin(object):
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         return super(LoginRequiredMixin, self).dispatch(request, *args, **kwargs)
+
+
+'''
+This class represent view with form to login into library
+on GET request we have form to input our credentials
+on POST request we check given input and if they are valid login into.
+'''
 
 
 class LoginPageView(FormView):
@@ -54,6 +62,13 @@ class LoginPageView(FormView):
         return render(request, self.template_name, {'form': user_form})
 
 
+'''
+This class represent view with form to register new user
+on GET request we have form to input data about new user
+on POST request we check given input and if they are new user is added into database
+'''
+
+
 class RegisterNewUserView(FormView):
     template_name = 'register_user.html'
     form_class = {'form': RegisterUserForm, 'form_imp': RegisterReaderForm}
@@ -78,6 +93,11 @@ class RegisterNewUserView(FormView):
         return render(request, self.template_name, {'form': user_form, 'form_imp': form_imp})
 
 
+'''
+This class represent view with logout response
+'''
+
+
 class LogoutPageView(LoginRequiredMixin, View):
     template_name = 'logout.html'
 
@@ -87,6 +107,11 @@ class LogoutPageView(LoginRequiredMixin, View):
             return render(request, self.template_name)
         else:
             return HttpResponseRedirect(reverse('dashboard'))
+
+
+'''
+This class represent view list all active users
+'''
 
 
 class UserListPageView(LoginRequiredMixin, ListView):
@@ -99,10 +124,15 @@ class UserListPageView(LoginRequiredMixin, ListView):
         return super(UserListPageView, self).dispatch(request, *args, **kwargs)
 
 
+'''
+This class represent detail view for selected user
+'''
+
+
 class UserDetailsPageView(LoginRequiredMixin, DetailView):
     model = User
     template_name = 'account/user/detail.html'
-    context_object_name = 'user'
+    context_object_name = 'reader'
 
     def get_object(self, *arg, **kwargs):
         return get_object_or_404(User, username=self.kwargs['username'])
@@ -110,3 +140,9 @@ class UserDetailsPageView(LoginRequiredMixin, DetailView):
     @method_decorator(staff_member_required)
     def dispatch(self, request, *args, **kwargs):
         return super(UserDetailsPageView, self).dispatch(request, *args, **kwargs)
+        
+    def get_context_data(self, *args, **kwargs):
+        context = super(UserDetailsPageView, self).get_context_data(*args, **kwargs)
+        todayoffset = datetime.date.today() - datetime.timedelta(days=30)
+        context['UserDetailsPageView'] = todayoffset
+        return context

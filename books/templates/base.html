@@ -14,7 +14,6 @@
 
     <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
     <link href="{% static "css/simple-sidebar.css" %}" rel="stylesheet">
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
     {% block css %}
 
     {% endblock %}
@@ -39,6 +38,9 @@
                	        </li>
                 	<li>
                 	    	<a href="{% url 'add_book' %}">Add Book</a>
+                	</li>
+                	<li>
+                	    	<a href="{% url 'add_item' %}">Add Item</a>
                 	</li>
                 	<li>
                  	   	<a href="{% url 'edit_book_list' %}">Edit Book</a>
