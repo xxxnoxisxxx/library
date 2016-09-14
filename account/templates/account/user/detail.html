@@ -20,7 +20,6 @@
                             <th>Title</th>
                             <th>Loan Date</th>
                             <th>Return Date</th>
-                            <th>Status</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -31,11 +30,6 @@
                                     <td>{{ loan.items.books.authors.all|join:", " }}</td>
                                     <td>{{ loan.loan_date }}</td>
                                     <td>{{ loan.return_date }}</td>
-                                    {% if todayoffset|date:"Y-m-d" < loan.return_date|date:"Y-m-d" %}
-                                    	<td>OK</td>
-                                    {% else %}
-                                    	<td>NOT OK</td>
-                                    {% endif %}
                                 </tr>
                         {% endfor %}
                         </tbody>

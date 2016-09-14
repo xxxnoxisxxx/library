@@ -55,7 +55,6 @@
 				<th>Title</th>
 				<th>Loan date</th>
 				<th>Return date</th>
-				<th>Status</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -67,11 +66,6 @@
 			<td>{{LOAN.items.books}}</td>
 			<td>{{LOAN.loan_date}}</td>
 			<td>{{LOAN.return_date}}</td>
-			{% if todayoffset|date:"Y-m-d H:M:S" < LOAN.return_date|date:"Y-m-d H:M:S" %}
-                                    	<td>OK</td>
-                                    {% else %}
-                                    	<td>NOT OK</td>
-                                    {% endif %}
 		</tr>
 		{% endfor %}
 		</tbody>
