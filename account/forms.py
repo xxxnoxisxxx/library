@@ -6,11 +6,17 @@ from account.models import Reader
 
 
 class LoginForm(forms.Form):
+    """Class represent form for login into library
+        Fields username and password are required
+    """
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput())
 
 
 class RegisterUserForm(forms.ModelForm):
+    """Class represent form for adding new library user
+        This class also check that password and confirm password match to each other
+    """
     password_confirm = forms.CharField(widget=forms.PasswordInput())
 
     def __init__(self, *args, **kwargs):
@@ -39,6 +45,7 @@ class RegisterUserForm(forms.ModelForm):
 
 
 class RegisterReaderForm(forms.ModelForm):
+    """Class represent form for additional data used in registration form"""
     class Meta:
         model = Reader
         fields = ('id_card', 'mobile')
