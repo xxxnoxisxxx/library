@@ -131,7 +131,7 @@ This class represent detail view for selected user
 class UserDetailsPageView(LoginRequiredMixin, DetailView):
     model = User
     template_name = 'account/user/detail.html'
-    context_object_name = 'user'
+    context_object_name = 'reader'
 
     def get_object(self, *arg, **kwargs):
         return get_object_or_404(User, username=self.kwargs['username'])

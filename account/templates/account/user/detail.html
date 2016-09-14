@@ -24,7 +24,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        {% for loan in user.reader.loan_set.all %}
+                        {% for loan in reader.reader.loan_set.all %}
                         <tr>
                                     <td>{{ forloop.counter }}</td>
                                     <td>{{ loan.items.books }}</td>
