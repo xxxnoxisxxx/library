@@ -2,14 +2,17 @@
 {% load crispy_forms_tags %}
 {% load staticfiles %} 
 {% block title %}Add Book{% endblock %}
+
+{% block headerrr %}  
+    <h2>Update book</h2>
+{% endblock %}
+
 {% block css %}
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 {% endblock %}
 {% block content %}
     <div class="page-header">
-        <h2>Library
-            <small>Update book</small>
-        </h2>
+
     </div>
     <div class="row">
         <div class="col-md-6 col-md-offset-3">

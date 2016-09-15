@@ -6,7 +6,6 @@ from books.views import *
 urlpatterns = [
     url(r'^$', DashboardView.as_view(), name='dashboard'),
     url(r'^searchbooks/', BookView.as_view(), name='search_books'),
-    url(r'^reservebooks/', ResBookView.as_view(), name='reserve_books'),
     url(r'^loan_book/', LoanView.as_view(), name='loan_book'),
     url(r'^return_book/', ReturnView.as_view(), name='return_book'),
     url(r'^loaned_books/', LoanedBookView.as_view(), name='loaned_books'),
@@ -16,5 +15,7 @@ urlpatterns = [
     url(r'^edit_book/(?P<id>\d+)/$', BookUpdate.as_view(), name='book_update'),
     url(r'^loan/', LoanPostView.as_view(), name='LoanPostView'),
     url(r'^returnloanedbook/', ReturnPostView.as_view(), name='ReturnPostView'),
+    url(r'^reservebooks/', ResBookView.as_view(), name='reserve_books'),
+    url(r'^reserve/', ReservePostView.as_view(), name='ReservePostView'),
 ]
 

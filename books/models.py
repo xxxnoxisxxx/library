@@ -33,7 +33,7 @@ class Book(models.Model):
     """Class represents book"""
 
     authors = models.ManyToManyField(Author, blank=False)
-    publisher = models.ForeignKey(Publisher, blank=False, null=False, on_delete=models.CASCADE)
+    publisher = models.ForeignKey(Publisher, blank=False, null=True, on_delete=models.CASCADE)
 
     title = models.CharField(max_length=50)
     isbn = models.CharField(max_length=20)

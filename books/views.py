@@ -149,6 +149,31 @@ class LoanPostView(LoginRequiredMixin, FormView):
             loan.save()
             messages.success(request, 'Enjoy reading')
         return HttpResponseRedirect(self.get_success_url())
+
+
+@method_decorator(csrf_exempt, name='dispatch')
+class  ReservePostView(LoginRequiredMixin, FormView):
+    success_url = reverse_lazy('reservebooks')
+
+    def post(self, request, *args, **kwargs):
+        reservation = request.body.decode('utf-8')
+        data = json.loads(reservation)
+        loan = data['selected_books']
+        user = data['selected_user']
+        print(loan)
+        print(user)
+
+        for bookid in reservation:
+            item = Item.objects.filter(books__id=bookid, available=True)[:1].get()
+            print(item)
+            item.available = False
+            reader = Reader.objects.get(id=user)
+            loan = Loan(items=item, readers=reader)
+            item.save()
+            loan.save()
+            messages.success(request, 'Please come to the Library to receive book.')
+        return HttpResponseRedirect(self.get_success_url())
+     
         
 @method_decorator(csrf_exempt, name='dispatch')
 class ReturnPostView(LoginRequiredMixin, FormView):
@@ -172,11 +197,12 @@ class ReturnPostView(LoginRequiredMixin, FormView):
 
 
 class ResBookView(LoginRequiredMixin, View):
-    template_name = 'bookWrapper.html'
+    template_name = 'reservationWrapper.html'
 
     def get(self, request, *args, **kwargs):
         books = Book.objects.all()
-        return render(request, self.template_name, {'books': books})
+        av_books = Item.objects.all().filter(available=True).values_list('books__id', flat=True).distinct()
+        return render(request, self.template_name, {'books': books, 'av_books': av_books})
 
 
 '''Class represents view with list all loaned books'''

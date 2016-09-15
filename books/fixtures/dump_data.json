@@ -344,6 +344,16 @@
   }
 },
 {
+  "model": "books.loan",
+  "pk": 1,
+  "fields": {
+    "items": 0,
+    "readers": 1,
+    "loan_date": "2016-09-08T19:34:17.746Z",
+    "return_date": "2016-10-08T19:33:33.655Z"
+  }
+},
+{
   "model": "auth.permission",
   "pk": 40,
   "fields": {
@@ -699,7 +709,7 @@
   "pk": 1,
   "fields": {
     "password": "pbkdf2_sha256$24000$KV1yr83C3pP2$GMj8BkwFctm/or2aSL7PGopm+Ke2AIGO7Eu2xQS2L1I=",
-    "last_login": "2016-09-05T20:00:32.487Z",
+    "last_login": "2016-09-14T22:53:45.580Z",
     "is_superuser": true,
     "username": "admin",
     "first_name": "",
@@ -717,7 +727,7 @@
   "pk": 2,
   "fields": {
     "password": "pbkdf2_sha256$24000$Wrp4oL7fY6x0$z7Vwty+EpOfjVdhyTLGNjN0KKu+OiCLI2+Opdwd/PDI=",
-    "last_login": "2016-09-05T20:02:35.204Z",
+    "last_login": "2016-09-14T23:06:41.996Z",
     "is_superuser": false,
     "username": "test",
     "first_name": "Janusz",
@@ -731,53 +741,52 @@
   }
 },
 {
+  "model": "auth.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$24000$3IL6NNT0AcLW$jn1it/+ylM1Q/5nB+iZcZ2xEOdP2fnGAxwlcUjwIbZc=",
+    "last_login": "2016-09-14T23:07:50.009Z",
+    "is_superuser": false,
+    "username": "czytelnik",
+    "first_name": "Fat",
+    "last_name": "Cat",
+    "email": "fatcat@fatcat.fis.agh.edu.pl",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2016-09-14T23:07:39.104Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
   "model": "account.reader",
   "pk": 1,
   "fields": {
     "reader": 2,
-    "loans": null,
-    "reservation": null,
     "id_card": "1",
     "mobile": "514514514"
   }
 },
 {
+  "model": "account.reader",
+  "pk": 2,
+  "fields": {
+    "reader": 3,
+    "id_card": "123123123",
+    "mobile": "321321321"
+  }
+},
+{
   "model": "admin.logentry",
   "pk": 1,
   "fields": {
-    "action_time": "2016-09-05T19:56:21.869Z",
+    "action_time": "2016-09-08T19:34:17.747Z",
     "user": 1,
-    "content_type": 17,
-    "object_id": "2",
-    "object_repr": "test",
-    "action_flag": 1,
-    "change_message": "Added."
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 2,
-  "fields": {
-    "action_time": "2016-09-05T19:57:20.032Z",
-    "user": 1,
-    "content_type": 26,
+    "content_type": 25,
     "object_id": "1",
-    "object_repr": "Grazia Janusz",
+    "object_repr": "TDD w praktyce 2016-09-08 19:34:17.746623+00:00 2016-10-08 19:33:33.655613+00:00",
     "action_flag": 1,
     "change_message": "Added."
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 3,
-  "fields": {
-    "action_time": "2016-09-05T20:02:23.339Z",
-    "user": 1,
-    "content_type": 17,
-    "object_id": "2",
-    "object_repr": "test",
-    "action_flag": 2,
-    "change_message": "Changed password."
   }
 }
 ]

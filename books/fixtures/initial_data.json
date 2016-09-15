@@ -169,7 +169,7 @@
         "pk": 1,
         "fields": {
             "books": 1,
-            "available": false
+            "available": true
         }
     },
     {
@@ -177,7 +177,7 @@
         "pk": 2,
         "fields": {
             "books": 1,
-            "available": false
+            "available": true
         }
     },
     {
@@ -236,6 +236,19 @@
             "available": true
         }
     },
+
+
+    {
+        "model": "books.loan",
+        "pk": 1,
+        "fields": {
+          "items": 0,
+          "readers": 1,
+          "loan_date": "2016-09-08T19:34:17.746Z",
+          "return_date": "2016-10-08T19:33:33.655Z"
+          }
+    },
+
     {
         "model": "auth.user",
         "pk": 1,
@@ -280,6 +293,33 @@
         "id_card": "1",
         "mobile": "514514514"
       }
+    },
+    {
+        "model": "auth.user",
+        "pk": 3,
+        "fields": {
+          "password": "pbkdf2_sha256$24000$3IL6NNT0AcLW$jn1it/+ylM1Q/5nB+iZcZ2xEOdP2fnGAxwlcUjwIbZc=",
+          "last_login": "2016-09-14T23:07:50.009Z",
+          "is_superuser": false,
+          "username": "fatcat",
+          "first_name": "Fat",
+          "last_name": "Cat",
+          "email": "fatcat@fatcat.fis.agh.edu.pl",
+          "is_staff": false,
+          "is_active": true,
+          "date_joined": "2016-09-14T23:07:39.104Z",
+          "groups": [],
+          "user_permissions": []
+        }
+    },
+    {
+        "model": "account.reader",
+        "pk": 2,
+        "fields": {
+          "reader": 3,
+          "id_card": "123123123",
+          "mobile": "321321321"
+        }
     }
 
 ]    
